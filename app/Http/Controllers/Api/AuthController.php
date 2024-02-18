@@ -24,7 +24,7 @@ class AuthController extends Controller
 
 ////////////////// User Register ///////////////////////////////////////////////
 
-    public function registerUser(RegisterUserRequest $request)
+    public function register(RegisterUserRequest $request)
     {
         try {
             $data = $request->validated();
@@ -44,7 +44,7 @@ class AuthController extends Controller
  
     ////////////////////// User Login //////////////////////////////////////////
     
-    public function loginUser(LoginUserRequest $request)
+    public function login(LoginUserRequest $request)
     {
        
         try {

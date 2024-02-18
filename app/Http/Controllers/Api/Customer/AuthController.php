@@ -37,7 +37,7 @@ class AuthController extends Controller
         $data = $request->only(['email', 'password']);
 
         if (!Auth::guard('customer')->attempt($data)) {
-            return $this->sendResponse(false,[],'Email & Password does not match with our record.',401);
+            return $this->sendResponse(false,[],trans('auth.failed'),401);
         }
 
         $user = Auth::guard('customer')->user();

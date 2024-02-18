@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -19,29 +20,28 @@ class RegisterUserRequest extends FormRequest
     }
 
  
-     ////////////////////// Register Rules /////////////
     public function rules()
     {
         return [
-            
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required'
-            
+            'name' => 'required',
+            'email' => 'required','email','unique:users,email',
+            'mobile' => 'required',
+            'gender' => 'required','in:male,female',
+            'password' => 'required','string','min:6','max:20'
         ];
         
     }
-   ////////////////////// Register And Login User Message/////////////
-/*
+
+   /*
+    |--------------------------------------------------------------------------
+    | handel json form of validation error
+    |--------------------------------------------------------------------------
+    */
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'status' => false,
-            'message' => "The given data was invalid.",
-            'data' => $validator->errors(),
-            'code' => 422,
-        ], 
-        422));
+        $controller = new Controller;
+        
+        throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
-     */
+     
 }

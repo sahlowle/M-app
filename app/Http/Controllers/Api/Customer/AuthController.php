@@ -52,7 +52,8 @@ class AuthController extends Controller
         return $this->sendResponse(true,$user,'User Logged In Successfully',200);
     }
 
-    public function forgetPassword(ForgetPasswordRequest $request) {
+    public function forgetPassword(ForgetPasswordRequest $request) 
+    {
         $email = $request->email;
 
         $otp = OTP::generate($email,4,10);

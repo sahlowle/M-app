@@ -8,7 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginUserRequest;
 use App\Http\Requests\Api\RegisterUserRequest;
 use App\Http\Requests\Api\ForgetPasswordRequest;
+use App\Mail\SendOtp;
+use App\Services\OTP;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
@@ -50,9 +53,11 @@ class AuthController extends Controller
     }
 
     public function forgetPassword(ForgetPasswordRequest $request) {
-        $credentials = $request->validated();
+        $email = $request->email;
 
-        Password::broker('customers')->sendResetLink($credentials);
+        $otp = OTP::generate($email,4,10);
+
+        Mail::to($email)->send(new SendOtp($otp));
 
         return $this->sendResponse(true,[],'Reset password link sent on your email id.',200);
     }

@@ -19,15 +19,15 @@ class OTP
     {
         Model::where('identifier', $identifier)->where('valid', true)->delete();
 
-        $token = str_pad(self::generatePin($digits), $digits, '0', STR_PAD_LEFT);
+        $otp = str_pad(self::generatePin($digits), $digits, '0', STR_PAD_LEFT);
 
         Model::create([
             'identifier' => $identifier,
-            'token' => $token,
+            'token' => $otp,
             'validity' => $validity
         ]);
 
-        return $token;
+        return $otp;
     }
 
     /**

@@ -23,11 +23,11 @@ class RegisterUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required','email','unique:users,email',
-            'mobile' => 'required',
-            'gender' => 'required','in:male,female',
-            'password' => 'required','string','min:6','max:20'
+            'name' => ['required'],
+            'email' => ['required','email','unique:users,email'],
+            'mobile' => ['required'],
+            'gender' => ['required','in:male,female'],
+            'password' =>[ 'required','string','min:6','max:20']
         ];
         
     }

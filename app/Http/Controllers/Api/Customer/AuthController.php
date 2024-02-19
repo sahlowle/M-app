@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginUserRequest;
 use App\Http\Requests\Api\RegisterUserRequest;
+use App\Http\Requests\Api\ForgetPasswordRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -45,6 +47,14 @@ class AuthController extends Controller
         $user['token'] = $user->createToken("API TOKEN")->plainTextToken;
 
         return $this->sendResponse(true,$user,'User Logged In Successfully',200);
+    }
+
+    public function forgetPassword(ForgetPasswordRequest $request) {
+        $credentials = $request->validated();
+
+        Password::sendResetLink($credentials);
+
+        return $this->sendResponse(true,[],'Reset password link sent on your email id.',200);
     }
 
 }

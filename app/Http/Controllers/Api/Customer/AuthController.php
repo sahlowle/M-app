@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function forgetPassword(ForgetPasswordRequest $request) {
         $credentials = $request->validated();
 
-        Password::sendResetLink($credentials);
+        Password::broker('customers')->sendResetLink($credentials);
 
         return $this->sendResponse(true,[],'Reset password link sent on your email id.',200);
     }

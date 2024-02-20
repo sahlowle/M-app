@@ -8,12 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginUserRequest;
 use App\Http\Requests\Api\RegisterUserRequest;
 use App\Http\Requests\Api\ForgetPasswordRequest;
+use App\Http\Requests\Api\GoogleLoginRequest;
 use App\Http\Requests\Api\ResetPasswordRequest;
 use App\Mail\SendOtp;
 use App\Services\OTP;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -26,11 +28,11 @@ class AuthController extends Controller
     {
         $data = $request->validated();
 
-        $user = Customer::create($data);
+        $customer = Customer::create($data);
 
-        $user['token'] = $user->createToken("login-token")->plainTextToken;
+        $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
-        return $this->sendResponse(true,$user,'User Created Successfully',200);
+        return $this->sendResponse(true,$customer,'User Created Successfully',200);
     }
 
    /*
@@ -46,11 +48,11 @@ class AuthController extends Controller
             return $this->sendResponse(false,[],trans('auth.failed'),401);
         }
 
-        $user = Auth::guard('customer')->user();
+        $customer = Auth::guard('customer')->user();
 
-        $user['token'] = $user->createToken("login-token")->plainTextToken;
+        $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
-        return $this->sendResponse(true,$user,'User Logged In Successfully',200);
+        return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
     
     /*
@@ -85,6 +87,39 @@ class AuthController extends Controller
         $customer->currentAccessToken()->delete(); // remove token to ensure no one else can use it after rest password. 
 
         return $this->sendResponse(true,[],'Password successful updated',200);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | handel login by google
+    |--------------------------------------------------------------------------
+    */
+    public function handleGoogleCallback(GoogleLoginRequest $request) 
+    {
+        $accessToken = $request->access_token;
+
+        $googleUser = Socialite::driver('google')->userFromToken($accessToken);
+
+        $customer = Customer::where('email', $googleUser->getEmail())->first();
+
+        if ($customer)
+        {
+            $customer->update([
+                'is_verified' => true
+            ]);
+        }
+        else
+        {
+            $customer = Customer::create([
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'is_verified' => true
+            ]);
+        }
+
+        $customer['token'] = $customer->createToken("login-token")->plainTextToken;
+
+        return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
 
 }

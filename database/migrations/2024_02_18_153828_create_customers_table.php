@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('mobile');
+            $table->string('mobile')->nullable();
             $table->string('email')->unique();
             $table->boolean('is_verified')->default(0);
-            $table->string('password');
-            $table->string('gender');
+            $table->string('password')->nullable();
+            $table->string('gender')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

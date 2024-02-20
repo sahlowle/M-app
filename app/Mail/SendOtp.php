@@ -28,7 +28,7 @@ class SendOtp extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Send Otp',
+            subject: 'Verification code',
         );
     }
 

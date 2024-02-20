@@ -1,215 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Static Template</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body
-    style="
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #ffffff;
-      font-size: 14px;
-    "
-  >
-    <div
-      style="
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 45px 30px 60px;
-        background: #f4f7ff;
-        background-image: url(https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/vrstyler/1661497957196_595865/email-template-background-banner);
-        background-repeat: no-repeat;
-        background-size: 800px 452px;
-        background-position: top center;
-        font-size: 14px;
-        color: #434343;
-      "
-    >
-      <header>
-        <table style="width: 100%;">
-          <tbody>
-            <tr style="height: 0;">
-              <td>
-                <img
-                  alt=""
-                  src="https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/vrstyler/1663574980688_114990/archisketch-logo"
-                  height="30px"
-                />
-              </td>
-              <td style="text-align: right;">
-                <span
-                  style="font-size: 16px; line-height: 30px; color: #ffffff;"
-                  >12 Nov, 2021</span
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </header>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify your login</title>
+  <!--[if mso]><style type="text/css">body, table, td, a { font-family: Arial, Helvetica, sans-serif !important; }</style><![endif]-->
+</head>
 
-      <main>
-        <div
-          style="
-            margin: 0;
-            margin-top: 70px;
-            padding: 92px 30px 115px;
-            background: #ffffff;
-            border-radius: 30px;
-            text-align: center;
-          "
-        >
-          <div style="width: 100%; max-width: 489px; margin: 0 auto;">
-            <h1
-              style="
-                margin: 0;
-                font-size: 24px;
-                font-weight: 500;
-                color: #1f1f1f;
-              "
-            >
-              Your OTP
-            </h1>
-            <p
-              style="
-                margin: 0;
-                margin-top: 17px;
-                font-size: 16px;
-                font-weight: 500;
-              "
-            >
-              Hey Tomy,
-            </p>
-            <p
-              style="
-                margin: 0;
-                margin-top: 17px;
-                font-weight: 500;
-                letter-spacing: 0.56px;
-              "
-            >
-              Thank you for choosing Archisketch Company. Use the following OTP
-              to complete the procedure to change your email address. OTP is
-              valid for
-              <span style="font-weight: 600; color: #1f1f1f;">5 minutes</span>.
-              Do not share this code with others, including Archisketch
-              employees.
-            </p>
-            <p
-              style="
-                margin: 0;
-                margin-top: 60px;
-                font-size: 40px;
-                font-weight: 600;
-                letter-spacing: 25px;
-                color: #ba3d4f;
-              "
-            >
-              {{ $otp }}
-            </p>
-          </div>
-        </div>
+<body style="font-family: Helvetica, Arial, sans-serif; margin: 0px; padding: 0px; background-color: rgb(239, 239, 239);">
+  <table role="presentation"
+    style="width: 100%; border-collapse: collapse; border: 0px; border-spacing: 0px; font-family: Arial, Helvetica, sans-serif; background-color: rgb(239, 239, 239);">
+    <tbody>
+      <tr>
+        <td align="center" style="padding: 1rem 2rem; vertical-align: top; width: 100%;">
+          <table role="presentation" style="max-width: 600px; border-collapse: collapse; border: 0px; border-spacing: 0px; text-align: left;">
+            <tbody>
+              <tr>
+                <td style="padding: 40px 0px 0px;">
+                  <div style="text-align: left;">
+                    <div style="padding-bottom: 20px;"><img src="https://i.ibb.co/Qbnj4mz/logo.png" alt="Company" style="width: 56px;"></div>
+                  </div>
+                  <div style="padding: 20px; background-color: rgb(255, 255, 255);">
+                    <div style="color: rgb(0, 0, 0); text-align: left;">
+                      <h1 style="margin: 1rem 0">Verification code</h1>
+                      <p style="padding-bottom: 16px">
+                        This verification code will expire in 20 minutes.
+                    </p>
+                      <p style="padding-bottom: 16px">
+                        <strong style="font-size: 130%">
+                            {{ $otp }}
+                        </strong>
+                    </p>
+                      <p style="padding-bottom: 16px">If you didn’t request this, you can ignore this email.</p>
+                      <p style="padding-bottom: 16px">Thanks,<br></p>
+                    </div>
+                  </div>
+                  <div style="padding-top: 20px; color: rgb(153, 153, 153); text-align: center;">
+                    <p style="padding-bottom: 16px">Made with ♥</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
 
-        <p
-          style="
-            max-width: 400px;
-            margin: 0 auto;
-            margin-top: 90px;
-            text-align: center;
-            font-weight: 500;
-            color: #8c8c8c;
-          "
-        >
-          Need help? Ask at
-          <a
-            href="mailto:archisketch@gmail.com"
-            style="color: #499fb6; text-decoration: none;"
-            >archisketch@gmail.com</a
-          >
-          or visit our
-          <a
-            href=""
-            target="_blank"
-            style="color: #499fb6; text-decoration: none;"
-            >Help Center</a
-          >
-        </p>
-      </main>
-
-      <footer
-        style="
-          width: 100%;
-          max-width: 490px;
-          margin: 20px auto 0;
-          text-align: center;
-          border-top: 1px solid #e6ebf1;
-        "
-      >
-        <p
-          style="
-            margin: 0;
-            margin-top: 40px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #434343;
-          "
-        >
-          Archisketch Company
-        </p>
-        <p style="margin: 0; margin-top: 8px; color: #434343;">
-          Address 540, City, State.
-        </p>
-        <div style="margin: 0; margin-top: 16px;">
-          <a href="" target="_blank" style="display: inline-block;">
-            <img
-              width="36px"
-              alt="Facebook"
-              src="https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/vrstyler/1661502815169_682499/email-template-icon-facebook"
-            />
-          </a>
-          <a
-            href=""
-            target="_blank"
-            style="display: inline-block; margin-left: 8px;"
-          >
-            <img
-              width="36px"
-              alt="Instagram"
-              src="https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/vrstyler/1661504218208_684135/email-template-icon-instagram"
-          /></a>
-          <a
-            href=""
-            target="_blank"
-            style="display: inline-block; margin-left: 8px;"
-          >
-            <img
-              width="36px"
-              alt="Twitter"
-              src="https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/vrstyler/1661503043040_372004/email-template-icon-twitter"
-            />
-          </a>
-          <a
-            href=""
-            target="_blank"
-            style="display: inline-block; margin-left: 8px;"
-          >
-            <img
-              width="36px"
-              alt="Youtube"
-              src="https://archisketch-resources.s3.ap-northeast-2.amazonaws.com/vrstyler/1661503195931_210869/email-template-icon-youtube"
-          /></a>
-        </div>
-        <p style="margin: 0; margin-top: 16px; color: #434343;">
-          Copyright © 2022 Company. All rights reserved.
-        </p>
-      </footer>
-    </div>
-  </body>
 </html>

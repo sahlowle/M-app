@@ -10,6 +10,7 @@ use App\Http\Requests\Api\RegisterUserRequest;
 use App\Http\Requests\Api\ForgetPasswordRequest;
 use App\Http\Requests\Api\GoogleLoginRequest;
 use App\Http\Requests\Api\ResetPasswordRequest;
+use App\Http\Requests\Api\VerifyOtpRequest;
 use App\Mail\SendOtp;
 use App\Services\OTP;
 use Illuminate\Support\Facades\Auth;
@@ -121,5 +122,28 @@ class AuthController extends Controller
 
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
+     /*
+    |--------------------------------------------------------------------------
+    |customer verify otp
+    |--------------------------------------------------------------------------
+    */
+    public function verifyOtp(VerifyOtpRequest $request)
+    {
+        $Customer  = Customer::where([['email','=',$request->email],['otp','=',$request->otp]])->first();
+        if($Customer){
+            auth()->login($Customer, true);
+            
+            Customer::where('email','=',$request->email)->update(['otp' => null]);
+
+            $customer = Auth::guard('customer')->user();
+
+            $customer['token'] = $customer->createToken("authToken")->accessToken;
+
+            return $this->sendResponse(true,[],'Password successful updated',200);
+           
+        }
+       
+    }
+
 
 }

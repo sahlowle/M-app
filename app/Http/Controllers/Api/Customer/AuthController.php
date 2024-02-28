@@ -6,11 +6,11 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginUserRequest;
-use App\Http\Requests\Api\RegisterUserRequest;
+use App\Http\Requests\Api\RegisterCustomerRequest;
 use App\Http\Requests\Api\ForgetPasswordRequest;
 use App\Http\Requests\Api\GoogleLoginRequest;
 use App\Http\Requests\Api\ResetPasswordRequest;
-use App\Http\Requests\Api\VerifyOtpRequest;
+use App\Http\Requests\Api\VerifyLoginOtpRequest;
 use App\Mail\SendOtp;
 use App\Services\OTP;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +25,7 @@ class AuthController extends Controller
    | Register new customer
    |--------------------------------------------------------------------------
    */
-    public function register(RegisterUserRequest $request)
+    public function register(RegisterCustomerRequest $request)
     {
         $data = $request->validated();
 
@@ -125,10 +125,10 @@ class AuthController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    |customer verify otp
+    |customer login verify otp
     |--------------------------------------------------------------------------
     */
-    public function verifyOtp(VerifyOtpRequest $request)
+    public function verifyLoginOtp(VerifyLoginOtpRequest $request)
     {
         $Customer  = Customer::where([['email','=',$request->email],['otp','=',$request->otp]])->first();
         

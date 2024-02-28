@@ -137,7 +137,7 @@ class AuthController extends Controller
 
         $otpValidate = OTP::validate($email,$otp);
 
-        if ($otpValidate) {
+        if ($otpValidate->success) {
             $customer  = Customer::where('email',$email)->first();
             $token = $customer->createToken("login-auth")->accessToken;
             return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
@@ -159,7 +159,7 @@ class AuthController extends Controller
 
         $otpValidate = OTP::validate($email,$otp);
 
-        if ($otpValidate) {
+        if ($otpValidate->success) {
             $customer  = Customer::where('email',$email)->first();
             $token = $customer->createToken('reset-password-auth', ['reset-password'])->plainTextToken;
             return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);

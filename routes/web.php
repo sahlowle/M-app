@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Mail\SendOtp;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $mail = Mail::to('sah@mid.com')->send(new SendOtp(1234));
+    // $mail = Mail::to('sah@mid.com')->send(new SendOtp(1234));
     // return dd($mail);
+
+    Artisan::call('migrate');
+    
     return view('welcome');
 });
 

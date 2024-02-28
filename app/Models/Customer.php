@@ -15,6 +15,11 @@ class Customer extends Authenticatable
 
     protected $guarded = ['id',];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function setPasswordAttribute($value)
     {
         return $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;

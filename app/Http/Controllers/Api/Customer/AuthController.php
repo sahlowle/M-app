@@ -11,6 +11,7 @@ use App\Http\Requests\Api\ForgetPasswordRequest;
 use App\Http\Requests\Api\GoogleLoginRequest;
 use App\Http\Requests\Api\ResetPasswordRequest;
 use App\Http\Requests\Api\VerifyLoginOtpRequest;
+use App\Http\Requests\Api\VerifyResetPasswordOtpRequest;
 use App\Mail\SendOtp;
 use App\Services\OTP;
 use Illuminate\Support\Facades\Auth;
@@ -130,21 +131,41 @@ class AuthController extends Controller
     */
     public function verifyLoginOtp(VerifyLoginOtpRequest $request)
     {
-        $Customer  = Customer::where([['email','=',$request->email],['otp','=',$request->otp]])->first();
-        
-        if($Customer){
-            auth()->login($Customer, true);
-            
-            Customer::where('email','=',$request->email)->update(['otp' => null]);
+        $email = $request->email;
 
-            $customer = Auth::guard('customer')->user();
+        $otp = $request->otp;
 
-            $customer['token'] = $customer->createToken("authToken")->accessToken;
+        $otpValidate = OTP::validate($email,$otp);
 
-            return $this->sendResponse(true,[],'Password successful updated',200);
-           
+        if ($otpValidate) {
+            $customer  = Customer::where('email',$email)->first();
+            $token = $customer->createToken("login-auth")->accessToken;
+            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
         }
-       
+
+        return $this->sendResponse(true,[],'Otp code is not valid',401);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    |reset password verify otp
+    |--------------------------------------------------------------------------
+    */
+    public function verifyResetPasswordOtp(VerifyResetPasswordOtpRequest $request)
+    {
+        $email = $request->email;
+
+        $otp = $request->otp;
+
+        $otpValidate = OTP::validate($email,$otp);
+
+        if ($otpValidate) {
+            $customer  = Customer::where('email',$email)->first();
+            $token = $customer->createToken('reset-password-auth', ['reset-password'])->plainTextToken;
+            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
+        }
+
+        return $this->sendResponse(true,[],'Otp code is not valid',401);
     }
 
 

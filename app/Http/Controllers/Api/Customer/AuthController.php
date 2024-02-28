@@ -122,7 +122,8 @@ class AuthController extends Controller
 
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
-     /*
+
+    /*
     |--------------------------------------------------------------------------
     |customer verify otp
     |--------------------------------------------------------------------------
@@ -130,6 +131,7 @@ class AuthController extends Controller
     public function verifyOtp(VerifyOtpRequest $request)
     {
         $Customer  = Customer::where([['email','=',$request->email],['otp','=',$request->otp]])->first();
+        
         if($Customer){
             auth()->login($Customer, true);
             

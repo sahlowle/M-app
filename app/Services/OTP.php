@@ -37,7 +37,10 @@ class OTP
      */
     public static function validate(string $identifier, string $token) : object
     {
-        $otp = Model::where('identifier', $identifier)->where('token', $token)->first();
+        $otp = Model::where('identifier', $identifier)
+        ->where('token', $token)
+        ->where('valid', true)
+        ->first();
 
         if (is_null($otp)) {
             return (object)[

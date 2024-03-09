@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hotels', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image_path')->nullable();
-            $table->text('description')->nullable();
-            $table->float('price', 8, 2)->default(0);
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-            $table->string('booking_url')->nullable();
+            $table->bigInteger('hotel_id');
+            $table->string('image_path');
             $table->timestamps();
+
+            $table->foreign('hotel_id')
+            ->references('id')
+            ->on('hotels')
+            ->onDelete('set null');
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotels');
+        Schema::dropIfExists('images');
     }
 };

@@ -13,12 +13,12 @@ class Hotel extends Model
     
     public function options()
     {
-     return $this->hasMany('App\Models\Option');
+        return $this->hasMany(Option::class);
     }
     
-    public function rates()
+    public function images()
     {
-     return $this->hasMany('App\Models\Rate');
+        return $this->hasMany(Image::class);
     }
     
 }

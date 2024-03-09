@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('hotel_id')->nullable();
             $table->string('name');
             $table->string('image_path')->nullable();
-            $table->unsignedBigInteger('count')->nullable();
-            $table->unsignedBigInteger('hotel_id')->nullable();
+            $table->integer('count')->default(1);
             $table->timestamps();
 
             $table->foreign('hotel_id')

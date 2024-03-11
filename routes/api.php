@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\AuthController;
+use App\Http\Controllers\Api\Hotel\HotelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('login-google-callback', 'handleGoogleCallback');
     Route::post('verify-otp/login' , 'verifyLoginOtp');
     Route::post('verify-otp/reset-password' , 'verifyResetPasswordOtp');
+});
+
+Route::controller(HotelController::class)->group(function () {
+    Route::post('get-all-hotel', 'index');
+    Route::post('create-hotel', 'create');
+    Route::post('show-hotel' , 'show');
+    Route::post('update-hotel' , 'update');
+    Route::get('delete-hotel', 'destroy');
 });
 
 /*

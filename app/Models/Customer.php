@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Nagy\LaravelRating\Traits\Rate\CanRate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable ,CanRate;
+   
 
     protected $guarded = ['id',];
 

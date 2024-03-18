@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Nagy\LaravelRating\Traits\Rate\Rateable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
-    use HasFactory ,Rateable;
+    use HasFactory;
 
     protected $guarded = ['id',];
     

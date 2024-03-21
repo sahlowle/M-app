@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('category_id');
             $table->text('name');
-            $table->string('image_path')->nullable();
+            $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->float('price')->default(0);
             $table->string('lat')->nullable();

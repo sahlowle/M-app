@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\AdminStoreHotelRequest;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class AdminHotelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminStoreHotelRequest $request)
     {
         //
     }

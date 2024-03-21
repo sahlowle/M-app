@@ -31,7 +31,7 @@ class AdminHotelController extends Controller
      */
     public function store(AdminStoreHotelRequest $request)
     {
-        //
+        return $request->all();
     }
 
     /**

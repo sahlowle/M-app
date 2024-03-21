@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
+    public $default_per_page = 10;
     /*
    |--------------------------------------------------------------------------
    | api response fun

@@ -13,9 +13,13 @@ class AdminHotelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $per_page = $request->get('per_page',$this->default_per_page);
+
+        $data = Hotel::paginate($per_page);
+
+        return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
 
     /**

@@ -31,7 +31,11 @@ class AdminHotelController extends Controller
      */
     public function store(AdminStoreHotelRequest $request)
     {
-        return $request->name[0];
+        $data = $request->validated();
+
+        $hotel = Hotel::create($data);
+
+        return $this->sendResponse(true,$hotel,'hotel created successful',200);
     }
 
     /**

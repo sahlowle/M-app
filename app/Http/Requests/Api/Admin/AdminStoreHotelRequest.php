@@ -22,16 +22,16 @@ class AdminStoreHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'category_id' => ['required'],
-            // 'name' => ['required','array'],
-            // 'image' => ['required','image'],
-            // 'description' => ['required','array'],
-            // 'price' => ['required','numeric'],
-            // 'lat' => ['required','max:120'],
-            // 'lng' => ['required','max:120'],
-            // 'booking_url' => ['required','url'],
-            // 'stars_count' => ['required','numeric'],
-            // 'rate_stars_count' => ['required','numeric'],
+            'category_id' => ['required'],
+            'name' => ['required','array'],
+            'image' => ['required','image'],
+            'description' => ['required','array'],
+            'price' => ['required','numeric'],
+            'lat' => ['required','max:120'],
+            'lng' => ['required','max:120'],
+            'booking_url' => ['required','url'],
+            'stars_count' => ['required','numeric'],
+            'rate_stars_count' => ['required','numeric'],
         ];
         
     }

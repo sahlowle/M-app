@@ -13,7 +13,6 @@ use App\Http\Requests\Api\ResetPasswordRequest;
 use App\Http\Requests\Api\VerifyLoginOtpRequest;
 use App\Http\Requests\Api\VerifyResetPasswordOtpRequest;
 use App\Mail\SendOtp;
-use App\Models\User;
 use App\Services\OTP;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -29,10 +28,6 @@ class AdminAuthController extends Controller
    */
   public function login(LoginUserRequest $request)
   {
-        $user = User::create($request->all());
-
-        return $user;
-
       $data = $request->only(['email', 'password']);
 
       if (!Auth::attempt($data)) {

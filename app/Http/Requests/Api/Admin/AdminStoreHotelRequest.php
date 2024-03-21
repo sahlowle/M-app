@@ -24,7 +24,7 @@ class AdminStoreHotelRequest extends FormRequest
         return [
             'category_id' => ['required'],
             'name' => ['required','array'],
-            'image' => ['required','image'],
+            'image' => ['required','string'],
             'description' => ['required','array'],
             'price' => ['required','numeric'],
             'lat' => ['required','max:120'],

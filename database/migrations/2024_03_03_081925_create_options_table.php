@@ -18,13 +18,8 @@ return new class extends Migration
             $table->bigInteger('hotel_id')->nullable();
             $table->string('name');
             $table->string('image_path')->nullable();
-            $table->integer('count')->default(1);
+            $table->integer('total_count')->default(1);
             $table->timestamps();
-
-            $table->foreign('hotel_id')
-            ->references('id')
-            ->on('hotels')
-            ->onDelete('set null');
         });
     }
 

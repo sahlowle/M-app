@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rates', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rate');
-            $table->unsignedBigInteger('hotel_id')->nullable();
+            $table->text('name');
+            $table->string('image_path')->nullable();
             $table->timestamps();
-
-            $table->foreign('hotel_id')
-            ->references('id')
-            ->on('hotels')
-            ->onDelete('set null');
         });
     }
 
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rates');
+        Schema::dropIfExists('categories');
     }
 };

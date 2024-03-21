@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('category_id');
+            $table->text('name');
             $table->string('image_path')->nullable();
             $table->text('description')->nullable();
-            $table->float('price', 8, 2)->default(0);
+            $table->float('price')->default(0);
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->string('booking_url')->nullable();
+            $table->integer('stars_count')->nullable();
+            $table->integer('rate_stars_count')->nullable();
             $table->timestamps();
         });
     }

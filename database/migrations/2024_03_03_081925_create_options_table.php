@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('hotel_id')->nullable();
             $table->string('name');
-            $table->string('image_path')->nullable();
+            $table->string('image')->nullable();
             $table->integer('total_count')->default(1);
             $table->timestamps();
         });

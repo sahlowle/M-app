@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\Admin\AdminAuthController;
 use App\Http\Controllers\Api\Admin\AdminHotelController;
+use App\Http\Controllers\Api\Admin\AdminOptionController;
+use App\Http\Controllers\Api\Admin\AdminSliderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,5 +21,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     /*|----- Admin routes |----*/
     Route::middleware(['auth:sanctum', 'ability:admin-login'])->group(function () {
         Route::apiResource('hotels',AdminHotelController::class);
+        Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
+        Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);
     });
 });

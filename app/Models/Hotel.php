@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 
 class Hotel extends Model
 {
@@ -15,13 +15,18 @@ class Hotel extends Model
     public $translatable = ['name','description'];
 
     protected $guarded = ['id',];
+
+    public function getImageAttribute($value)
+    {
+        return url("")."/".$value;
+    }
     
     public function options()
     {
         return $this->hasMany(Option::class);
     }
     
-    public function images()
+    public function sliders()
     {
         return $this->hasMany(Image::class);
     }

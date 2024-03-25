@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\AuthController;
+use Illuminate\Support\Facades\Cache;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,18 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('login-google-callback', 'handleGoogleCallback');
     Route::post('verify-otp/login' , 'verifyLoginOtp');
     Route::post('verify-otp/reset-password' , 'verifyResetPasswordOtp');
+});
+
+
+Route::post('/webhook', function () {
+
+    $data = request()->all();
+
+    if($data){
+        Cache::put('webhook',$data,now()->addYear());
+    }
+    
+    return "<h1> webhook added </h1>";
 });
 
 

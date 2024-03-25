@@ -18,16 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('/webhook', function () {
-
-    $data = request()->all();
-
-    if($data){
-        Cache::put('webhook',$data,now()->addYear());
-    }
-    
-    return "<h1> webhook added </h1>";
-});
 
 Route::any('/get-webhook', function () {
     

@@ -22,7 +22,9 @@ Route::any('/webhook', function () {
 
     $data = request()->all();
 
-    Cache::put('webhook',$data);
+    if($data){
+        Cache::put('webhook',$data,now()->addYear());
+    }
     
     return "<h1> webhook added </h1>";
 });

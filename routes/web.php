@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Mail\SendOtp;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -17,11 +18,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::any('/webhook', function () {
+
+    $data = request()->all();
+
+    Cache::put('webhook',$data);
+    
+    return "<h1> webhook added </h1>";
+});
+
+Route::any('/get-webhook', function () {
+    
+    $data = Cache::get('webhook');
+
+    return $data;
+});
+
 Route::get('/', function () {
+
+    Artisan::call('optimize:clear');
     // $mail = Mail::to('sah@mid.com')->send(new SendOtp(1234));
     // return dd($mail);
 
-    Artisan::call('migrate');
+    // Artisan::call('migrate');
     
     return view('welcome');
 });

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminStoreHotelRequest extends FormRequest
+class AdminUpdateHotelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,15 @@ class AdminStoreHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array'],
-            'image' => ['required','image'],
-            'description' => ['required','array'],
-            'price' => ['required','numeric'],
-            'lat' => ['required','max:120'],
-            'lng' => ['required','max:120'],
-            'booking_url' => ['required','url'],
-            'stars_count' => ['required','numeric'],
-            'rate_stars_count' => ['required','numeric'],
+            'name' => ['nullable','array'],
+            'image' => ['nullable','image'],
+            'description' => ['nullable','array'],
+            'price' => ['nullable','numeric'],
+            'lat' => ['nullable','max:120'],
+            'lng' => ['nullable','max:120'],
+            'booking_url' => ['nullable','url'],
+            'stars_count' => ['nullable','numeric'],
+            'rate_stars_count' => ['nullable','numeric'],
         ];
 
         

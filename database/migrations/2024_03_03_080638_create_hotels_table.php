@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id');
             $table->text('name');
             $table->string('image')->nullable();
             $table->text('description')->nullable();

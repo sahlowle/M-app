@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\AdminStoreHotelRequest;
+use App\Http\Requests\Api\Admin\AdminUpdateHotelRequest;
 use App\Models\Category;
 use App\Models\Hotel;
 use App\Traits\FileSaveTrait;
@@ -61,7 +62,7 @@ class AdminHotelController extends Controller
 
         $hotel->load('options','sliders');
 
-        return $this->sendResponse(true,$hotel,'hotel created successful',200);
+        return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }
 
     /**
@@ -71,9 +72,27 @@ class AdminHotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hotel $hotel)
+    public function update(AdminUpdateHotelRequest $request, $id)
     {
-        //
+        $hotel = Hotel::find($id);
+
+        if (is_null($hotel)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
+        }
+
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile('hotel_images',$request->file('image'));
+
+            $path = $hotel->getRawOriginal('image');
+
+            $this->deleteFile($path);
+        }
+
+        $hotel->update($data);
+
+        return $this->sendResponse(true,$hotel,'hotel updated successful',200);
     }
 
     /**
@@ -82,8 +101,20 @@ class AdminHotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hotel $hotel)
+    public function destroy($id)
     {
-        //
+        $hotel = Hotel::find($id);
+
+        if (is_null($hotel)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
+        }
+        
+        $path = $hotel->getRawOriginal('image');
+
+        $hotel->delete();
+
+        $this->deleteFile($path);
+
+        return $this->sendResponse(true,$hotel,'hotel deleted successful',200);
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Requests\Api\Admin;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AdminUpdateCategoryRequest extends FormRequest
 {
@@ -27,5 +29,17 @@ class AdminUpdateCategoryRequest extends FormRequest
             'name' => ['nullable','array'],
             'image' => ['nullable','image'],
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | handel json form of validation error
+    |--------------------------------------------------------------------------
+    */
+    public function failedValidation(Validator $validator)
+    {
+        $controller = new Controller;
+        
+        throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

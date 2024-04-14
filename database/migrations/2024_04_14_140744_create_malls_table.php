@@ -16,12 +16,18 @@ return new class extends Migration
         Schema::create('malls', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->bigInteger('category_id')->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->string('website_url')->nullable();
             $table->timestamps();
+
+            $table->foreign('category_id')
+            ->references('id')
+            ->on('categories')
+            ->onDelete('set null');
         });
     }
 

@@ -20,6 +20,11 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('total_count')->default(1);
             $table->timestamps();
+
+            $table->foreign('hotel_id')
+            ->references('id')
+            ->on('hotels')
+            ->onDelete('set null');
         });
     }
 

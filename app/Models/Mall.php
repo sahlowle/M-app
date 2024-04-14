@@ -11,12 +11,17 @@ class Mall extends Model
 
     use HasTranslations;
 
-    public $translatable = ['name'];
+    public $translatable = ['name','description'];
 
     protected $guarded = ['id'];
 
     public function getImageAttribute($value)
     {
         return url("")."/".$value;
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 }

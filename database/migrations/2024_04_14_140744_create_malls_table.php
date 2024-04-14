@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('malls', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->bigInteger('category_id')->nullable();
+            
+            $table->unsignedBigInteger('category_id');
+
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('lat')->nullable();
@@ -26,8 +28,7 @@ return new class extends Migration
 
             $table->foreign('category_id')
             ->references('id')
-            ->on('categories')
-            ->onDelete('set null');
+            ->on('categories');
         });
     }
 

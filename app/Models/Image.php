@@ -16,6 +16,11 @@ class Image extends Model
         'updated_at',
     ];
 
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
+
     public function getImageAttribute($value)
     {
         return url("")."/".$value;

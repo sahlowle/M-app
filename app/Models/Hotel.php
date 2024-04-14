@@ -28,7 +28,7 @@ class Hotel extends Model
     
     public function sliders()
     {
-        return $this->hasMany(Image::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
     
 }

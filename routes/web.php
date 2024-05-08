@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TabbyController;
 use App\Mail\SendOtp;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
@@ -40,6 +41,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::get('/pay', [TabbyController::class, 'pay'])->name('pay');
+
+    Route::get('/success', [TabbyController::class, 'pay'])->name('success-url');
+    Route::get('/cancel', [TabbyController::class, 'pay'])->name('cancel-url');
+    Route::get('/failure', [TabbyController::class, 'pay'])->name('failure-url');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

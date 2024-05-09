@@ -63,7 +63,7 @@ class AuthController extends Controller
             $email = $customer->email;
             $otp = OTP::generate($email,4,10);
             Mail::to($email)->send(new SendOtp($otp));
-            return $this->sendResponse(false,[],'Verify your account must',401);
+            return $this->sendResponse(false,[],'please verify your account',402);
         }
 
         $customer['token'] = $customer->createToken("login-token")->plainTextToken;
@@ -158,7 +158,7 @@ class AuthController extends Controller
             $customer->update([
                 'is_verified' => true
             ]);
-            
+
             return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
         }
 

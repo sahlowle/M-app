@@ -16,6 +16,10 @@ class Customer extends Authenticatable
 
     protected $guarded = ['id',];
 
+    protected $casts = [
+        'is_verified' => 'boolean',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -25,4 +29,13 @@ class Customer extends Authenticatable
     {
         return $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
     }
+
+    function isVerified()  {
+        return $this->is_verified == true;
+    }
+
+    function isNotVerified()  {
+        return !$this->isVerified();
+    }
+
 }

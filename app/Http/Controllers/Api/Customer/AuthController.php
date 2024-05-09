@@ -21,6 +21,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
+
    /*
    |--------------------------------------------------------------------------
    | Register new customer
@@ -32,7 +33,13 @@ class AuthController extends Controller
 
         $customer = Customer::create($data);
 
-        $customer['token'] = $customer->createToken("login-token")->plainTextToken;
+        $email = $customer->email;
+
+        $otp = OTP::generate($email,4,10);
+
+        Mail::to($email)->send(new SendOtp($otp));
+
+        // $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
         return $this->sendResponse(true,$customer,'User Created Successfully',200);
     }
@@ -51,6 +58,13 @@ class AuthController extends Controller
         }
 
         $customer = Auth::guard('customer')->user();
+
+        if ($customer->isNotVerified()) {
+            $email = $customer->email;
+            $otp = OTP::generate($email,4,10);
+            Mail::to($email)->send(new SendOtp($otp));
+            return $this->sendResponse(false,[],'Verify your account must',401);
+        }
 
         $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
@@ -139,7 +153,12 @@ class AuthController extends Controller
 
         if ($otpValidate->success) {
             $customer  = Customer::where('email',$email)->first();
-            $token = $customer->createToken("login-auth")->accessToken;
+            $token = $customer->createToken("login-token")->accessToken;
+
+            $customer->update([
+                'is_verified' => true
+            ]);
+            
             return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
         }
 

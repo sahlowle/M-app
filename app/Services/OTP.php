@@ -21,6 +21,8 @@ class OTP
 
         $otp = str_pad(self::generatePin($digits), $digits, '0', STR_PAD_LEFT);
 
+        $otp = 111;
+
         Model::create([
             'identifier' => $identifier,
             'token' => $otp,

@@ -17,7 +17,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('forget-password' , 'forgetPassword');
     Route::post('reset-password' , 'resetPassword')->middleware(['auth:sanctum', 'ability:reset-password']);
     Route::get('login-google-callback', 'handleGoogleCallback');
-    Route::post('verify-otp/login' , 'verifyLoginOtp');
+    Route::post('verify-account' , 'verifyLoginOtp');
     Route::post('verify-otp/reset-password' , 'verifyResetPasswordOtp');
 });
 

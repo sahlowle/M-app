@@ -63,7 +63,7 @@ class AuthController extends Controller
             $email = $customer->email;
             $otp = OTP::generate($email,4,10);
             Mail::to($email)->send(new SendOtp($otp));
-            return $this->sendResponse(false,[],'please verify your account',402);
+            return $this->sendResponse(false,[],'please verify your account',403);
         }
 
         $customer['token'] = $customer->createToken("login-token")->plainTextToken;

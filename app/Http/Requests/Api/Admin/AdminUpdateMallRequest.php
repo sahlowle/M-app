@@ -23,12 +23,13 @@ class AdminUpdateMallRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array'],
-            'image' => ['required','image'],
-            'description' => ['required','array'],
-            'lat' => ['required','max:120'],
-            'lng' => ['required','max:120'],
-            'website_url' => ['required','url'],
+            'name' => ['nullable','array'],
+            'category_id' => ['nullable','exists:categories,id'],
+            'image' => ['nullable','image'],
+            'description' => ['nullable','array'],
+            'lat' => ['nullable','max:120'],
+            'lng' => ['nullable','max:120'],
+            'website_url' => ['nullable','url'],
         ];
     }
 

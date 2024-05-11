@@ -20,8 +20,10 @@ class Mall extends Model
         return url("")."/".$value;
     }
 
-    public function categories()
+   
+    public function category()
     {
         return $this->hasMany(Category::class);
     }
+
 }

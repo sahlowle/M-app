@@ -60,6 +60,8 @@ class AdminMallController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
+        $mall->load('category:id,name');
+
         return $this->sendResponse(true,$mall,'mall retrieved successful',200);
     }
 

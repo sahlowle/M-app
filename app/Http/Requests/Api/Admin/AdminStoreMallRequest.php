@@ -29,7 +29,7 @@ class AdminStoreMallRequest extends FormRequest
         return [
             'name' => ['required','array'],
             'category_id' => ['required','exists:categories,id'],
-            'image' => ['required','image'],
+            // 'image' => ['required','image'],
             'description' => ['required','array'],
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],

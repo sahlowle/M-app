@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Customer\CustomerHotelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\AuthController;
+use App\Http\Controllers\Api\Customer\CustomerMallController;
 use Illuminate\Support\Facades\Cache;
 
 /*
@@ -24,6 +25,7 @@ Route::controller(AuthController::class)->group(function () {
 /*|----- Customer routes |----*/
 Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('hotels',CustomerHotelController::class)->only('show','index');
+    Route::apiResource('malls',CustomerMallController::class)->only('show','index');
 });
 
 

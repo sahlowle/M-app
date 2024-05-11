@@ -22,7 +22,8 @@ class AdminStoreSliderRequest extends FormRequest
     public function rules()
     {
         return [
-            'hotel_id' => ['required','exists:hotels,id'],
+            'type' => ['required','in:hotel,museum,mall'],
+            'id' => ['required','numeric'],
             'image' => ['required','image'],
         ];
     }

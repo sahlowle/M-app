@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\AdminStoreSliderRequest;
+use App\Models\Hotel;
 use App\Models\Image;
+use App\Models\Mall;
+use App\Models\Museum;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
 
@@ -20,15 +23,23 @@ class AdminSliderController extends Controller
      */
     public function store(AdminStoreSliderRequest $request)
     {
-        $data = $request->validated();
+        $model = match ($request->type){
+            'hotel' => Hotel::class,
+            'mall' => Mall::class,
+            'museum' => Museum::class,
+        };
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile('sliders_images',$request->file('image'));
+        $instance = $model::find($request->id);
+
+        if (is_null($instance)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $slider = Image::create($data);
+        $data['image'] = $this->uploadFile('sliders_images',$request->file('image'));
 
-        return $this->sendResponse(true,$slider,'slider created successful',200);
+        $instance->sliders()->create($data);
+     
+        return $this->sendResponse(true,$model,'slider created successful',200);
     }
     
     /**

@@ -26,4 +26,9 @@ class Mall extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function sliders()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
 }

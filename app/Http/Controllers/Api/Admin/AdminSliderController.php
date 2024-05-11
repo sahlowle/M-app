@@ -39,7 +39,7 @@ class AdminSliderController extends Controller
 
         $instance->sliders()->create($data);
      
-        return $this->sendResponse(true,$instance,'slider created successful',200);
+        return $this->sendResponse(true,[],'slider created successful',200);
     }
     
     /**

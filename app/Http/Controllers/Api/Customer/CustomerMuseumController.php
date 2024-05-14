@@ -36,7 +36,7 @@ class CustomerMuseumController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $museum->load('sliders');
+        $museum->load('category:id,name','sliders');
 
         return $this->sendResponse(true,$museum,'museum retrieved successful',200);
     }

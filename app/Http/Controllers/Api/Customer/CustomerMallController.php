@@ -36,7 +36,7 @@ class CustomerMallController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $mall->load('sliders');
+        $mall->load('category:id,name','sliders');
 
         return $this->sendResponse(true,$mall,'mall retrieved successful',200);
     }

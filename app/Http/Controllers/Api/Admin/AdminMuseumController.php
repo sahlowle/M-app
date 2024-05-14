@@ -35,11 +35,11 @@ class AdminMuseumController extends Controller
      */
     public function store(AdminStoreMuseumRequest $request)
     {
-       $data = $request->validate();
-
-       if ($request->hasFile('image')) {
-       $data['image'] = $this->uploadFile('museum_image' , $request->file('image'));
-       }
+        $data = $request->validated();
+        
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile('museum_image' , $request->file('image'));
+        }
 
        $museum = Museum::create($data);
        

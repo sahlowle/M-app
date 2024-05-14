@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\AuthController;
 use App\Http\Controllers\Api\Customer\CustomerMallController;
+use App\Http\Controllers\Api\Customer\CustomerMuseumController;
 use App\Http\Controllers\Api\Customer\CustomerSettingController;
 use Illuminate\Support\Facades\Cache;
 

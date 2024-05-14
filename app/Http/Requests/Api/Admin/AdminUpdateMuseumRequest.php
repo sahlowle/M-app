@@ -29,7 +29,7 @@ class AdminUpdateMuseumRequest extends FormRequest
         return [
             'name' => ['nullable','array'],
             'category_id' => ['nullable','exists:categories,id'],
-            'image' => ['nullable','image'],
+            // 'image' => ['nullable','image'],
             'description' => ['nullable','array'],
             'lat' => ['nullable','max:120'],
             'lng' => ['nullable','max:120'],

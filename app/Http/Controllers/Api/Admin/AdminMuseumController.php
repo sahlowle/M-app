@@ -61,6 +61,8 @@ class AdminMuseumController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
+        $museum->load('category:id,name','sliders');
+
         return $this->sendResponse(true,$museum,'museum retrieved successful',200);
     }
 

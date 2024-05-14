@@ -34,7 +34,6 @@ class AdminStoreMallRequest extends FormRequest
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],
             'website_url' => ['required','url'],
-
         ];
     }
     

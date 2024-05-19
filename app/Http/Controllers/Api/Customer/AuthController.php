@@ -44,6 +44,49 @@ class AuthController extends Controller
         return $this->sendResponse(true,$customer,'User Created Successfully',200);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    |customer login verify otp
+    |--------------------------------------------------------------------------
+    */
+    public function verifyLoginOtp(VerifyLoginOtpRequest $request)
+    {
+        $email = $request->email;
+
+        $otp = $request->otp;
+
+        $otpValidate = OTP::validate($email,$otp);
+
+        if ($otpValidate->success) {
+            $customer  = Customer::where('email',$email)->first();
+            $token = $customer->createToken("login-token")->accessToken;
+
+            $customer->update([
+                'is_verified' => true
+            ]);
+
+            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
+        }
+
+        return $this->sendResponse(false,[],'Otp code is not valid',401);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | resend Otp
+    |--------------------------------------------------------------------------
+    */
+    public function resendOtp(ForgetPasswordRequest $request) 
+    {
+        $email = $request->email;
+
+        $otp = OTP::generate($email,4,10);
+
+        Mail::to($email)->send(new SendOtp($otp));
+
+        return $this->sendResponse(true,[],'Reset password link sent on your email.',200);
+    }
+
    /*
    |--------------------------------------------------------------------------
    | login customer
@@ -70,7 +113,8 @@ class AuthController extends Controller
 
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
-    
+
+
     /*
     |--------------------------------------------------------------------------
     | customer forget password
@@ -85,6 +129,28 @@ class AuthController extends Controller
         Mail::to($email)->send(new SendOtp($otp));
 
         return $this->sendResponse(true,[],'Reset password link sent on your email.',200);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    |reset password verify otp
+    |--------------------------------------------------------------------------
+    */
+    public function verifyResetPasswordOtp(VerifyResetPasswordOtpRequest $request)
+    {
+        $email = $request->email;
+
+        $otp = $request->otp;
+
+        $otpValidate = OTP::validate($email,$otp);
+
+        if ($otpValidate->success) {
+            $customer  = Customer::where('email',$email)->first();
+            $token = $customer->createToken('reset-password-auth', ['reset-password'])->plainTextToken;
+            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
+        }
+
+        return $this->sendResponse(false,[],'Otp code is not valid',401);
     }
 
     /*
@@ -138,54 +204,7 @@ class AuthController extends Controller
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    |customer login verify otp
-    |--------------------------------------------------------------------------
-    */
-    public function verifyLoginOtp(VerifyLoginOtpRequest $request)
-    {
-        $email = $request->email;
 
-        $otp = $request->otp;
-
-        $otpValidate = OTP::validate($email,$otp);
-
-        if ($otpValidate->success) {
-            $customer  = Customer::where('email',$email)->first();
-            $token = $customer->createToken("login-token")->accessToken;
-
-            $customer->update([
-                'is_verified' => true
-            ]);
-
-            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
-        }
-
-        return $this->sendResponse(true,[],'Otp code is not valid',401);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    |reset password verify otp
-    |--------------------------------------------------------------------------
-    */
-    public function verifyResetPasswordOtp(VerifyResetPasswordOtpRequest $request)
-    {
-        $email = $request->email;
-
-        $otp = $request->otp;
-
-        $otpValidate = OTP::validate($email,$otp);
-
-        if ($otpValidate->success) {
-            $customer  = Customer::where('email',$email)->first();
-            $token = $customer->createToken('reset-password-auth', ['reset-password'])->plainTextToken;
-            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
-        }
-
-        return $this->sendResponse(true,[],'Otp code is not valid',401);
-    }
 
 
 }

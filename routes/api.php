@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
+    Route::post('resend-otp', 'resendOtp');
     Route::post('forget-password' , 'forgetPassword');
     Route::post('reset-password' , 'resetPassword')->middleware(['auth:sanctum', 'ability:reset-password']);
     Route::get('login-google-callback', 'handleGoogleCallback');

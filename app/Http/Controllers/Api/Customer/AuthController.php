@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         Mail::to($email)->send(new SendOtp($otp));
 
-        return $this->sendResponse(true,[],'Reset password link sent on your email.',200);
+        return $this->sendResponse(true,[],'Otp code sent on your email.',200);
     }
 
    /*
@@ -128,7 +128,7 @@ class AuthController extends Controller
 
         Mail::to($email)->send(new SendOtp($otp));
 
-        return $this->sendResponse(true,[],'Reset password link sent on your email.',200);
+        return $this->sendResponse(true,[],'Otp code sent on your email.',200);
     }
 
     /*

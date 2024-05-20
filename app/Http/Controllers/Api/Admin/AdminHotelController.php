@@ -37,6 +37,8 @@ class AdminHotelController extends Controller
     {
         $data = $request->validated();
 
+        return $request->all();
+
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadFile('hotel_images',$request->file('image'));
         }

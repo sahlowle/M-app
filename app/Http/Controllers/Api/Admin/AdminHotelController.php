@@ -79,9 +79,7 @@ class AdminHotelController extends Controller
         if (is_null($hotel)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
-
-        return $request->all();
-
+        
         $data = $request->validated();
 
         if ($request->hasFile('image')) {

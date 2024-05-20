@@ -23,10 +23,15 @@ Route::prefix('admin')->as('admin.')->middleware('api')->group(function () {
 
     /*|----- Admin routes |----*/
     Route::middleware(['auth:sanctum', 'ability:admin-login'])->group(function () {
-        Route::apiResource('hotels',AdminHotelController::class);
-        Route::apiResource('categories',AdminCategoryController::class);
-        Route::apiResource('malls',AdminMallController::class);
-        Route::apiResource('museums',AdminMuseumController::class);
+        
+        Route::apiResource('hotels',AdminHotelController::class)->except(['update']);
+        Route::post('hotels/{id}',[AdminHotelController::class,'update']);
+
+        Route::apiResource('categories',AdminCategoryController::class)->except(['update']);
+        Route::post('categories/{id}',[AdminCategoryController::class,'update']);
+
+        Route::apiResource('malls',AdminMallController::class)->except(['update']);
+        Route::apiResource('museums',AdminMuseumController::class)->except(['update']);
         Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
         Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);
     });

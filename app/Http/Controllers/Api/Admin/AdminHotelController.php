@@ -80,7 +80,7 @@ class AdminHotelController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
         
-        $data = $request->validated();
+        return $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadFile('hotel_images',$request->file('image'));

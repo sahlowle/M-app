@@ -31,7 +31,11 @@ Route::prefix('admin')->as('admin.')->middleware('api')->group(function () {
         Route::post('categories/{id}',[AdminCategoryController::class,'update']);
 
         Route::apiResource('malls',AdminMallController::class)->except(['update']);
+        Route::post('malls/{id}',[AdminMallController::class,'update']);
+
         Route::apiResource('museums',AdminMuseumController::class)->except(['update']);
+        Route::post('museums/{id}',[AdminMuseumController::class,'update']);
+
         Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
         Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);
     });

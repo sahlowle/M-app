@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 | Admin routes
 |--------------------------------------------------------------------------
 */
-Route::prefix('admin')->as('admin.')->middleware('api')->group(function () {
+Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function () {
     /*|----- Auth routes |----*/
     Route::controller(AdminAuthController::class)->group(function () {
         Route::post('login', 'login');

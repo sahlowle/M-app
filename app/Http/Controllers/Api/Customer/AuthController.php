@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         if ($otpValidate->success) {
             $customer  = Customer::where('email',$email)->first();
-            $token = $customer->createToken("login-token")->accessToken;
+            $token = $customer->createToken("login-token")->plainTextToken;
 
             $customer->update([
                 'is_verified' => true

@@ -57,8 +57,6 @@ class AuthController extends Controller
 
         $otpValidate = OTP::validate($email,$otp);
 
-        return $otpValidate;
-
         if ($otpValidate->success) {
             $customer  = Customer::where('email',$email)->first();
             $token = $customer->createToken("login-token")->accessToken;

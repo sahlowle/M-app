@@ -13,6 +13,11 @@ class Otp extends Model
      */
     protected $table = 'otps';
 
+    protected $casts = 
+    [
+        'valid' => 'boolean'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

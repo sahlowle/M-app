@@ -21,7 +21,7 @@ class OTP
 
         $otp = str_pad(self::generatePin($digits), $digits, '0', STR_PAD_LEFT);
 
-        $otp = 111;
+        $otp = 1111;
 
         Model::create([
             'identifier' => $identifier,

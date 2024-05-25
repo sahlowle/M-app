@@ -105,7 +105,7 @@ class AdminMuseumController extends Controller
     public function destroy($id)
     {
         $museum = Museum::find($id);
-
+        
         if (is_null($museum)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }

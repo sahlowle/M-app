@@ -33,7 +33,7 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('hotels',CustomerHotelController::class)->only('show','index');
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
-    Route::apiResource('events',CustomerEventController::class)->only('show','index');
+    
 
     /*|----- settings routes |----*/
     Route::get('settings',[CustomerSettingController::class,'index']);

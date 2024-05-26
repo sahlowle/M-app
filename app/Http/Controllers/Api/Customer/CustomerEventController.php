@@ -36,5 +36,9 @@ class CustomerEventController extends Controller
 
         return $this->sendResponse(true,$event,'hotel retrieved successful',200);
     }
+    public function update(Request $request)
+    {
+        
+    }
 
 }

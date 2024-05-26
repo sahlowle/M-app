@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Admin\AdminOptionController;
 use App\Http\Controllers\Api\Admin\AdminSliderController;
 use App\Http\Controllers\Api\Admin\AdminMallController;
 use App\Http\Controllers\Api\Admin\AdminMuseumController;
+use App\Http\Controllers\Api\Admin\AdminEventController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +36,9 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('museums',AdminMuseumController::class)->except(['update']);
         Route::post('museums/{id}',[AdminMuseumController::class,'update']);
+
+        Route::apiResource('events',AdminEventController::class)->except(['update']);
+        Route::post('events/{id}',[AdminEventController::class,'update']);
 
         Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
         Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);

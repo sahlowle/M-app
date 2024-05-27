@@ -20,9 +20,8 @@ class AdminMuseumController extends Controller
      */
     public function index(Request $request)
     {
-        $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Museum::paginate($per_page);
+        $data = Museum::first();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -40,8 +39,14 @@ class AdminMuseumController extends Controller
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadFile('museum_image' , $request->file('image'));
         }
+        
+        $museum = Museum::first();
 
-       $museum = Museum::create($data);
+        if (is_null($museum)) {
+            $museum = Museum::create($data);
+        }else{
+            $museum->update($data);
+        }
        
        return $this->sendResponse(true , $museum , 'museum created successful',200);
        
@@ -55,7 +60,7 @@ class AdminMuseumController extends Controller
      */
     public function show($id)
     {
-        $museum = Museum::find($id);
+        $museum = Museum::first();
 
         if (is_null($museum)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
@@ -75,7 +80,7 @@ class AdminMuseumController extends Controller
      */
     public function update(AdminUpdateMuseumRequest $request, $id)
     {
-        $museum = Museum::find($id);
+        $museum = Museum::first();
 
         if (is_null($museum)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
@@ -96,26 +101,4 @@ class AdminMuseumController extends Controller
         return $this->sendResponse(true,$museum,'museum updated successful',200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $museum = Museum::find($id);
-        
-        if (is_null($museum)) {
-            return $this->sendResponse(false ,[] ,"data not found ",404);
-        }
-        
-        $path = $museum->getRawOriginal('image');
-
-        $museum->delete();
-
-        $this->deleteFile($path);
-
-        return $this->sendResponse(true,$museum,'museum deleted successful',200);
-    }
 }

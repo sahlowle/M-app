@@ -35,7 +35,7 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::apiResource('malls',AdminMallController::class)->except(['update']);
         Route::post('malls/{id}',[AdminMallController::class,'update']);
 
-        Route::apiResource('museums',AdminMuseumController::class)->except(['update']);
+        Route::apiResource('museums',AdminMuseumController::class)->except(['update','destroy']);
         Route::post('museums/{id}',[AdminMuseumController::class,'update']);
 
         Route::apiResource('events',AdminEventController::class)->except(['update']);

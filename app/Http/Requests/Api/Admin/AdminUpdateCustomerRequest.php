@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminStoreMallRequest extends FormRequest
+class AdminUpdateCustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,28 +16,21 @@ class AdminStoreMallRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
+ 
     public function rules()
     {
         return [
-            'name' => ['required','array'],
-            'mall_name' => ['required','array'],
-            'category_id' => ['required','exists:categories,id'],
-            'image' => ['required','image'],
-            'description' => ['required','array'],
-            'lat' => ['required','max:120'],
-            'lng' => ['required','max:120'],
-            'website_url' => ['required','url'],
+            'name' => ['nullable'],
+            'email' => ['nullable','email','unique:customers,email'],
+            'mobile' => ['nullable'],
+            'gender' => ['nullable','in:male,female'],
+            'password' =>[ 'nullable','string','min:6','max:20']
         ];
+        
     }
-    
+
    /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
@@ -49,4 +42,5 @@ class AdminStoreMallRequest extends FormRequest
         
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
+     
 }

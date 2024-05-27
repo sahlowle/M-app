@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminAuthController;
 use App\Http\Controllers\Api\Admin\AdminCategoryController;
+use App\Http\Controllers\Api\Admin\AdminCustomerController;
 use App\Http\Controllers\Api\Admin\AdminHotelController;
 use App\Http\Controllers\Api\Admin\AdminOptionController;
 use App\Http\Controllers\Api\Admin\AdminSliderController;
@@ -42,5 +43,8 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
         Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);
+
+        Route::apiResource('customers',AdminCustomerController::class)->except(['store','update']);
+        Route::post('customers/{id}',[AdminCustomerController::class,'update']);
     });
 });

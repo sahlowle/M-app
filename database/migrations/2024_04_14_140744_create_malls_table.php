@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('malls', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->text('mall_name');
             $table->unsignedBigInteger('category_id');
             $table->string('image')->nullable();
             $table->text('description')->nullable();

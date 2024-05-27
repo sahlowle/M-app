@@ -24,6 +24,7 @@ class AdminUpdateMallRequest extends FormRequest
     {
         return [
             'name' => ['nullable','array'],
+            'mall_name' => ['nullable','array'],
             'category_id' => ['nullable','exists:categories,id'],
             'image' => ['nullable','image'],
             'description' => ['nullable','array'],

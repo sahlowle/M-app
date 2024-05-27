@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Customer\CustomerHotelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\AuthController;
+use App\Http\Controllers\Api\Customer\CustomerCategoryController;
 use App\Http\Controllers\Api\Customer\CustomerMallController;
 use App\Http\Controllers\Api\Customer\CustomerMuseumController;
 use App\Http\Controllers\Api\Customer\CustomerSettingController;
@@ -34,6 +35,9 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
     Route::apiResource('events',CustomerEventController::class)->only('show','index');
+    
+    /*|----- settings routes |----*/
+    Route::get('categories',[CustomerCategoryController::class,'index']);
 
     /*|----- settings routes |----*/
     Route::get('settings',[CustomerSettingController::class,'index']);

@@ -17,7 +17,7 @@ class CustomerMallController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Mall::paginate($per_page);
+        $data = Mall::with('category:id,name')->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

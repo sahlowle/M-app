@@ -32,8 +32,8 @@ class AdminStoreEventRequest extends FormRequest
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],
             'address' => ['required','array'],
-            'event_time' => ['required','date'],
-            'event_date' => ['required','date'],
+            'event_time' => ['required','date_format:H:i:s'],
+            'event_date' => ['required','date_format:Y-m-d'],
         ];
     }
 

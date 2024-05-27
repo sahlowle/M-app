@@ -20,6 +20,7 @@ class AdminUpdateEventRequest extends FormRequest
 
     public function rules()
     {
+        
         return [
             'name' => ['nullable','array'],
             'image' => ['nullable','image'],
@@ -27,8 +28,8 @@ class AdminUpdateEventRequest extends FormRequest
             'address' => ['nullable','array'],
             'lat' => ['nullable','max:120'],
             'lng' => ['nullable','max:120'],
-            'event_time' => ['nullable','date'],
-            'event_date' => ['nullable','date'],
+            'event_time' => ['nullable','date_format:H:i:s'],
+            'event_date' => ['nullable','date_format:Y-m-d'],
         ];
 
         

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('booking_url')->nullable();
             $table->integer('stars_count')->nullable();
             $table->integer('rate_stars_count')->nullable();
+            $table->integer('users_ratings_count')->nullable();
             $table->timestamps();
         });
     }

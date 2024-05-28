@@ -25,7 +25,7 @@
                     <div style="color: rgb(0, 0, 0); text-align: left;">
                       <h1 style="margin: 1rem 0">Verification code</h1>
                       <p style="padding-bottom: 16px">
-                        This verification code will expire in 20 minutes.
+                        To verify your email address in Jabal Omar mobile application, enter the following code:
                     </p>
                       <p style="padding-bottom: 16px">
                         <strong style="font-size: 130%">

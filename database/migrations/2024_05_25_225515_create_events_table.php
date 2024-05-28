@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('event_time',100)->nullable();
             $table->string('event_date',100)->nullable();
+            $table->string('phone_one',20)->nullable();
+            $table->string('phone_two',20)->nullable();
+            $table->string('phone_three',20)->nullable();
             $table->timestamps();
         });
     }

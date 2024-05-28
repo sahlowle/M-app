@@ -46,5 +46,8 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('customers',AdminCustomerController::class)->except(['store','update']);
         Route::post('customers/{id}',[AdminCustomerController::class,'update']);
+
+        Route::apiResource('administrators',AdministratorController::class)->except(['store','update']);
+        Route::post('administrators/{id}',[AdminCustomerController::class,'update']);
     });
 });

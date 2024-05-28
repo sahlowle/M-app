@@ -25,6 +25,9 @@ return new class extends Migration
             $table->integer('stars_count')->nullable();
             $table->integer('rate_stars_count')->nullable();
             $table->integer('users_ratings_count')->nullable();
+            $table->string('phone_one',20)->nullable();
+            $table->string('phone_two',20)->nullable();
+            $table->string('phone_three',20)->nullable();
             $table->timestamps();
         });
     }

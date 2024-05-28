@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Requests\Api\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminUpdateCategoryRequest extends FormRequest
+class UpdateAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +27,13 @@ class AdminUpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['array'],
-            'image' => ['image'],
+            'name' => ['max:50'],
+            'email' => ['email','unique:users,email,'.$this->route('id')],
+            'password' => ['string','min:6','max:20'],
         ];
     }
-
-    /*
+    
+   /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
     |--------------------------------------------------------------------------

@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\AdminSliderController;
 use App\Http\Controllers\Api\Admin\AdminMallController;
 use App\Http\Controllers\Api\Admin\AdminMuseumController;
 use App\Http\Controllers\Api\Admin\AdminEventController;
+use App\Http\Controllers\Api\Admin\AdministratorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,7 +48,7 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::apiResource('customers',AdminCustomerController::class)->except(['store','update']);
         Route::post('customers/{id}',[AdminCustomerController::class,'update']);
 
-        Route::apiResource('administrators',AdministratorController::class)->except(['store','update']);
-        Route::post('administrators/{id}',[AdminCustomerController::class,'update']);
+        Route::apiResource('administrators',AdministratorController::class)->except(['update']);
+        Route::post('administrators/{id}',[AdministratorController::class,'update']);
     });
 });

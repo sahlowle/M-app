@@ -114,6 +114,6 @@ class AdminCategoryController extends Controller
 
         $this->deleteFile($path);
  
-        return $this->sendResponse(true,$category,'category updated successful',200);
+        return $this->sendResponse(true,$category,'category deleted successful',200);
     }
 }

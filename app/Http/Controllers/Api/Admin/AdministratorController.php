@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Admin\AdminStoreMallRequest;
-use App\Http\Requests\Api\Admin\AdminUpdateMallRequest;
+use App\Http\Requests\Api\Admin\StoreAdminRequest;
+use App\Http\Requests\Api\Admin\UpdateAdminRequest;
 use App\Models\User;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class AdministratorController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = User::paginate($per_page);
+        $data = User::select(['id','name','email'])->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -34,10 +34,10 @@ class AdministratorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminStoreMallRequest $request)
+    public function store(StoreAdminRequest $request)
     {
         $data = $request->validated();
-        
+
         $data['password'] = Hash::make($request->password);
 
         $admin = User::create($data);
@@ -69,7 +69,7 @@ class AdministratorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUpdateMallRequest $request, $id)
+    public function update(UpdateAdminRequest $request, $id)
     {
         $admin = User::find($id);
 
@@ -96,18 +96,14 @@ class AdministratorController extends Controller
      */
     public function destroy($id)
     {
-        $mall = Mall::find($id);
+        $admin = User::find($id);
 
-        if (is_null($mall)) {
+        if (is_null($admin)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
         
-        $path = $mall->getRawOriginal('image');
+        $admin->delete();
 
-        $mall->delete();
-
-        $this->deleteFile($path);
-
-        return $this->sendResponse(true,$mall,'mall deleted successful',200);
+        return $this->sendResponse(true,$admin,'admin deleted successful',200);
     }
 }

@@ -22,11 +22,11 @@ class AdminUpdateCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['nullable'],
-            'email' => ['nullable','email','unique:customers,email'],
-            'mobile' => ['nullable'],
-            'gender' => ['nullable','in:male,female'],
-            'password' =>[ 'nullable','string','min:6','max:20']
+            'name' => ['min:3'],
+            'email' => ['email','unique:customers,email'],
+            'mobile' => ['min:9'],
+            'gender' => ['in:male,female'],
+            'password' =>[ 'min:6','max:20']
         ];
         
     }

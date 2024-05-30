@@ -22,18 +22,22 @@ class AdminUpdateHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['nullable','array'],
-            'image' => ['nullable','image'],
-            'description' => ['nullable','array'],
-            'price' => ['nullable','numeric'],
-            'lat' => ['nullable','max:120'],
-            'lng' => ['nullable','max:120'],
-            'booking_url' => ['nullable','url'],
-            'stars_count' => ['nullable','numeric'],
-            'rate_stars_count' => ['nullable','numeric'],
+            'name' => ['array'],
+            'image' => ['image'],
+            'description' => ['array'],
+            'price' => ['numeric'],
+            'lat' => ['max:120'],
+            'lng' => ['max:120'],
+            'booking_url' => ['url'],
+            'stars_count' => ['numeric','min:1','max:5'],
+            'rate_stars_count' => ['numeric'],
+            'users_ratings_count' => ['numeric'],
+            'phone_one' => ['numeric','digits_between:9,20'],
+            'phone_two' => ['numeric','digits_between:9,20'],
+            'phone_three' => ['numeric','digits_between:9,20'],
         ];
-
         
+  
     }
 
    /*

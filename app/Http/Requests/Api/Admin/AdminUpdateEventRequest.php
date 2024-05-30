@@ -22,14 +22,17 @@ class AdminUpdateEventRequest extends FormRequest
     {
         
         return [
-            'name' => ['nullable','array'],
-            'image' => ['nullable','image'],
-            'description' => ['nullable','array'],
-            'address' => ['nullable','array'],
-            'lat' => ['nullable','max:120'],
-            'lng' => ['nullable','max:120'],
-            'event_time' => ['nullable','date_format:H:i:s'],
-            'event_date' => ['nullable','date_format:Y-m-d'],
+            'name' => ['array'],
+            'image' => ['image'],
+            'description' => ['array'],
+            'address' => ['array'],
+            'lat' => ['max:120'],
+            'lng' => ['max:120'],
+            'event_time' => ['date_format:H:i:s'],
+            'event_date' => ['date_format:Y-m-d'],
+            'phone_one' => ['numeric','digits_between:9,20'],
+            'phone_two' => ['numeric','digits_between:9,20'],
+            'phone_three' => ['numeric','digits_between:9,20'],
         ];
 
         

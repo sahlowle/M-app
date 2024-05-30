@@ -35,6 +35,9 @@ class AdminStoreMallRequest extends FormRequest
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],
             'website_url' => ['required','url'],
+            'phone_one' => ['numeric','digits_between:9,20'],
+            'phone_two' => ['numeric','digits_between:9,20'],
+            'phone_three' => ['numeric','digits_between:9,20'],
         ];
     }
     

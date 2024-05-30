@@ -34,6 +34,9 @@ class AdminStoreEventRequest extends FormRequest
             'address' => ['required','array'],
             'event_time' => ['required','date_format:H:i:s'],
             'event_date' => ['required','date_format:Y-m-d'],
+            'phone_one' => ['numeric','digits_between:9,20'],
+            'phone_two' => ['numeric','digits_between:9,20'],
+            'phone_three' => ['numeric','digits_between:9,20'],
         ];
     }
 

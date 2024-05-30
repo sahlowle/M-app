@@ -31,6 +31,10 @@ class AdminStoreHotelRequest extends FormRequest
             'booking_url' => ['required','url'],
             'stars_count' => ['required','numeric'],
             'rate_stars_count' => ['required','numeric'],
+            'users_ratings_count' => ['required','numeric'],
+            'phone_one' => ['numeric','digits_between:9,20'],
+            'phone_two' => ['numeric','digits_between:9,20'],
+            'phone_three' => ['numeric','digits_between:9,20'],
         ];
 
         

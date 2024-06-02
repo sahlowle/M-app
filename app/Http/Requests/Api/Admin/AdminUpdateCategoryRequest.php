@@ -27,7 +27,7 @@ class AdminUpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['array'],
-            'image' => ['image'],
+            // 'image' => ['image'],
         ];
     }
 

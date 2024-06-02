@@ -27,7 +27,7 @@ class AdminStoreCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required','array'],
-            'image' => ['required','image'],
+            // 'image' => ['required','image'],
         ];
     }
    /*

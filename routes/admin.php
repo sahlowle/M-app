@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\AdminMallController;
 use App\Http\Controllers\Api\Admin\AdminMuseumController;
 use App\Http\Controllers\Api\Admin\AdminEventController;
 use App\Http\Controllers\Api\Admin\AdministratorController;
+use App\Http\Controllers\Api\Admin\AdminRestaurantController;
 use Illuminate\Support\Facades\Route;
 
 

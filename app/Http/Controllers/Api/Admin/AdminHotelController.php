@@ -61,6 +61,7 @@ class AdminHotelController extends Controller
         }
 
         $hotel->load('options','sliders');
+        
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }

@@ -11,7 +11,7 @@ class Mall extends Model
 
     use HasTranslations;
 
-    public $translatable = ['name','description'];
+    public $translatable = ['name','description','mall_name'];
 
     protected $guarded = ['id'];
 

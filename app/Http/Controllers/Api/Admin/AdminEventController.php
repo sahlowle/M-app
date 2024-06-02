@@ -42,7 +42,7 @@ class AdminEventController extends Controller
 
         $event = Event::create($data);
 
-        return $this->sendResponse(true,$event,'hotel created successful',200);
+        return $this->sendResponse(true,$event,'event created successful',200);
     }
 
     /**
@@ -59,7 +59,7 @@ class AdminEventController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        return $this->sendResponse(true,$event,'hotel retrieved successful',200);
+        return $this->sendResponse(true,$event,'event retrieved successful',200);
     }
 
     /**
@@ -89,7 +89,7 @@ class AdminEventController extends Controller
 
         $event->update($data);
 
-        return $this->sendResponse(true,$event,'hotel updated successful',200);
+        return $this->sendResponse(true,$event,'event updated successful',200);
     }
 
     /**

@@ -34,7 +34,7 @@ class CustomerEventController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        return $this->sendResponse(true,$event,'hotel retrieved successful',200);
+        return $this->sendResponse(true,$event,'event retrieved successful',200);
     }
     public function update(Request $request)
     {

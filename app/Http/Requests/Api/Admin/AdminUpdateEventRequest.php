@@ -25,7 +25,7 @@ class AdminUpdateEventRequest extends FormRequest
             'name' => ['array'],
             'image' => ['image'],
             'description' => ['array'],
-            'address' => ['array'],
+            'address' => ['string','max:190'],
             'lat' => ['max:120'],
             'lng' => ['max:120'],
             'event_time' => ['date_format:H:i:s'],

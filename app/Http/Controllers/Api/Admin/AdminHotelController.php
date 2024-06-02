@@ -54,7 +54,7 @@ class AdminHotelController extends Controller
      */
     public function show($id)
     {
-        return $hotel = Hotel::find($id);
+        $hotel = Hotel::find($id);
 
         if (is_null($hotel)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);

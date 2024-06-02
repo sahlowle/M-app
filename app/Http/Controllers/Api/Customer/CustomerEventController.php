@@ -36,9 +36,4 @@ class CustomerEventController extends Controller
 
         return $this->sendResponse(true,$event,'event retrieved successful',200);
     }
-    public function update(Request $request)
-    {
-        
-    }
-
 }

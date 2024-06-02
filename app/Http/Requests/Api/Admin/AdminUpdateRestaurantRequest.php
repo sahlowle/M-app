@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginUserRequest extends FormRequest
+class AdminUpdateRestaurantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,20 +16,28 @@ class LoginUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
+
 
     public function rules()
     {
         return [
-            'email' => ['required','email'],
-            'password' => ['required','string','min:6','max:20'],
-            'fcm_token' => ['required','string','min:10','max:250'],
-            'device_type' => ['required','string','in:android,ios'],
+            'name' => ['array'],
+            'mall_name' => ['array'],
+            'category_id' => ['exists:categories,id'],
+            'image' => ['image'],
+            'description' => ['array'],
+            'lat' => ['max:120'],
+            'lng' => ['max:120'],
+            'website_url' => ['url'],
+            'phone_one' => ['numeric','digits_between:9,20'],
+            'phone_two' => ['numeric','digits_between:9,20'],
+            'phone_three' => ['numeric','digits_between:9,20'],
         ];
     }
 
-    /*
+       /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
     |--------------------------------------------------------------------------
@@ -41,5 +48,4 @@ class LoginUserRequest extends FormRequest
         
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
-
 }

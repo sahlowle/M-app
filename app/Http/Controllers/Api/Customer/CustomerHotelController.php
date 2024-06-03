@@ -28,7 +28,7 @@ class CustomerHotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function showx($id)
+    public function show($id)
     {
         $hotel = Hotel::find($id);
 

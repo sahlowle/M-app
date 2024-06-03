@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminStoreOptionRequest extends FormRequest
+class AdminUpdateOptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,10 @@ class AdminStoreOptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'hotel_id' => ['required','exists:hotels,id'],
-            'name' => ['required','array'],
-            'image' => ['required','image'],
-            'total_count' => ['required','numeric'],
+            'hotel_id' => ['exists:hotels,id'],
+            'name' => ['array'],
+            'image' => ['image'],
+            'total_count' => ['numeric'],
         ];
     }
 

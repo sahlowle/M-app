@@ -47,6 +47,7 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::post('events/{id}',[AdminEventController::class,'update']);
 
         Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
+        Route::post('options/{id}',[AdminOptionController::class,'update']);
         Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);
 
         Route::apiResource('customers',AdminCustomerController::class)->except(['store','update']);

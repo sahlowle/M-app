@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\AdminStoreOptionRequest;
+use App\Http\Requests\Api\Admin\AdminUpdateOptionRequest;
 use App\Models\Option;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
@@ -29,6 +30,36 @@ class AdminOptionController extends Controller
         $option = Option::create($data);
 
         return $this->sendResponse(true,$option,'option created successful',200);
+    }
+
+        /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(AdminUpdateOptionRequest $request, $id)
+    {
+        $option = Option::first();
+
+        if (is_null($option)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
+        }
+
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadFile('option_images',$request->file('image'));
+
+            $path = $option->getRawOriginal('image');
+
+            $this->deleteFile($path);
+        }
+
+        $option->update($data);
+
+        return $this->sendResponse(true,$option,'option updated successful',200);
     }
     
     /**

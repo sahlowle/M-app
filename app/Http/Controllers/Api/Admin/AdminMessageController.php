@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Http\Controllers\Api\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\AdminStoreMessageRequest;
+use App\Http\Requests\Api\Admin\AdminUpdateMessageRequest;
+use App\Models\Message;
+use App\Models\Conversation;
+use Illuminate\Http\Request;
+
+class AdminMessageController extends Controller
+{
+
+  
+    public function getAllConversation(Request $request)
+    {
+        $per_page = $request->get('per_page',$this->default_per_page);
+
+        $data = Conversation::with('latestMessage')->latest('id')->paginate($per_page);
+
+        return $this->sendResponse(true,$data,'data retrieved successful',200);
+    }
+
+
+    public function sendMessage(AdminStoreMessageRequest $request)
+    {
+        $conversation = Conversation::where('customer_id',$request->customer_id)->first();
+
+        if (is_null($conversation)) {
+            $conversation = Conversation::create($request->only('customer_id'));
+        }
+
+        $data = [
+            'conversation_id' => $conversation->id,
+            'sender_id' => $request->user()->id,
+            'sender_type' => 'admin',
+            'message' => $request->message
+        ];
+
+        $message = Message::create($data);
+       
+       return $this->sendResponse(true , $message , 'message created successful',200);
+    }
+
+ 
+    public function updateMessage(AdminUpdateMessageRequest $request, $id)
+    {
+        $message = Message::find($id);
+
+        if (is_null($message)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
+        }
+
+        $admin_id = $request->user()->id;
+
+        if ($message->sender_id != $admin_id) {
+            abort(403);
+        }
+
+        $data = $request->validated();
+
+        $message->update($data);
+
+        return $this->sendResponse(true,$message,'message updated successful',200);
+    }
+
+
+    public function deleteMessage(Request $request,$id)
+    {
+        $message = Message::find($id);
+
+        if (is_null($message)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
+        }
+
+        $admin_id = $request->user()->id;
+
+        if ($message->sender_id != $admin_id) {
+            abort(403);
+        }
+
+        return $this->sendResponse(true,$message,'message deleted successful',200);
+    }
+
+}

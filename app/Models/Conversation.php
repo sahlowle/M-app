@@ -9,14 +9,16 @@ class Conversation extends Model
 {
     use HasFactory;
 
-    public function chats()
+    protected $guarded = ['id'];
+    
+    public function messages()
     {
-        return $this->hasMany(Chat::class);
+        return $this->hasMany(Message::class);
     }
 
-    public function latestChat()
+    public function latestMessage()
     {
-        return $this->hasOne(Chat::class)->latestOfMany();
+        return $this->hasOne(Message::class)->latestOfMany();
     }
     
 }

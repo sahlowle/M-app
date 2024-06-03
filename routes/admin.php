@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\AdminMallController;
 use App\Http\Controllers\Api\Admin\AdminMuseumController;
 use App\Http\Controllers\Api\Admin\AdminEventController;
 use App\Http\Controllers\Api\Admin\AdministratorController;
+use App\Http\Controllers\Api\Admin\AdminMessageController;
 use App\Http\Controllers\Api\Admin\AdminRestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,5 +56,10 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('administrators',AdministratorController::class)->except(['update']);
         Route::post('administrators/{id}',[AdministratorController::class,'update']);
+
+        Route::post('get-all-conversations',[AdminMessageController::class,'getAllConversation']);
+        Route::post('send-message',[AdminMessageController::class,'sendMessage']);
+        Route::post('update-message',[AdminMessageController::class,'updateMessage']);
+        Route::delete('delete-message',[AdminMessageController::class,'deleteMessage']);
     });
 });

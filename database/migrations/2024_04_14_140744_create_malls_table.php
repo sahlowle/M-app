@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
-            $table->string('website_url')->nullable();
+            $table->string('address')->nullable();
             $table->string('phone_one',20)->nullable();
             $table->string('phone_two',20)->nullable();
             $table->string('phone_three',20)->nullable();

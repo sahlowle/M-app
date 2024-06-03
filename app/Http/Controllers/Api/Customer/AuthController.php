@@ -109,6 +109,8 @@ class AuthController extends Controller
             return $this->sendResponse(false,[],'please verify your account',403);
         }
 
+        $customer->update($request->only(['fcm_token','device_token']));
+
         $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);

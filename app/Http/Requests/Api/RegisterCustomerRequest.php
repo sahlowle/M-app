@@ -27,7 +27,9 @@ class RegisterCustomerRequest extends FormRequest
             'email' => ['required','email','unique:customers,email'],
             'mobile' => ['required'],
             'gender' => ['required','in:male,female'],
-            'password' =>[ 'required','string','min:6','max:20']
+            'password' =>[ 'required','string','min:6','max:20'],
+            'fcm_token' => ['required','string','min:10','max:250'],
+            'device_type' => ['required','string','in:android,ios'],
         ];
         
     }

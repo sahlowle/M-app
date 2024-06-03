@@ -36,7 +36,7 @@ class CustomerHotelController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $hotel->load('options','sliders');
+        $hotel->load('options','sliderss');
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }

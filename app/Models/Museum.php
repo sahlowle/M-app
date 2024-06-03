@@ -21,11 +21,6 @@ class Museum extends Model
         return url("")."/".$value;
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     public function sliders()
     {
         return $this->morphMany(Image::class, 'imageable');

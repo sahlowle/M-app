@@ -21,7 +21,7 @@ class AdminMuseumController extends Controller
     public function index(Request $request)
     {
 
-        $data = Museum::first();
+        $data = Museum::with('sliders')->first();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -40,11 +40,13 @@ class AdminMuseumController extends Controller
             $data['image'] = $this->uploadFile('museum_image' , $request->file('image'));
         }
         
-        $museum = Museum::first();
+        $museum = Museum::with('sliders')->first();
 
         if (is_null($museum)) {
             $museum = Museum::create($data);
-        }else{
+        }
+        else
+        {
             $museum->update($data);
         }
        

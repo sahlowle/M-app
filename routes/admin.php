@@ -57,7 +57,7 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::apiResource('administrators',AdministratorController::class)->except(['update']);
         Route::post('administrators/{id}',[AdministratorController::class,'update']);
 
-        Route::post('get-all-conversations',[AdminMessageController::class,'getAllConversation']);
+        Route::get('get-all-conversations',[AdminMessageController::class,'getAllConversation']);
         Route::post('send-message',[AdminMessageController::class,'sendMessage']);
         Route::post('update-message',[AdminMessageController::class,'updateMessage']);
         Route::delete('delete-message',[AdminMessageController::class,'deleteMessage']);

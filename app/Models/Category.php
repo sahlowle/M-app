@@ -15,10 +15,5 @@ class Category extends Model
     public $translatable = ['name'];
 
     protected $guarded = ['id'];
-
-    public function getImageAttribute($value)
-    {
-        return url("")."/".$value;
-    }
     
 }

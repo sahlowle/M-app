@@ -15,7 +15,6 @@ class CustomerCategoryController extends Controller
      */
     public function index(Request $request)
     {     
-
         $data = Category::get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);

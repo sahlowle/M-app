@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Restaurant extends Model
 {
@@ -30,5 +31,14 @@ class Restaurant extends Model
     public function sliders()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    function scopeFilter($query,Request $request) {
+        
+        if ($request->filled('category_id')) {
+            $query->where('category_id',$request->category_id);
+        }
+
+        $query->where('name->'.app()->getLocale(), 'like', '%'.$request->name.'%');
     }
 }

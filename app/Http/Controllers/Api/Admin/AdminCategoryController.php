@@ -37,11 +37,7 @@ class AdminCategoryController extends Controller
     public function store(AdminStoreCategoryRequest $request)
     {
         $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile('category_images',$request->file('image'));
-        }
-
+        
         $category = Category::create($data);
 
         return $this->sendResponse(true,$category,'category created successful',200);
@@ -81,14 +77,6 @@ class AdminCategoryController extends Controller
 
         $data = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile('category_images',$request->file('image'));
-
-            $path = $category->getRawOriginal('image');
-
-            $this->deleteFile($path);
-        }
-
         $category->update($data);
 
         return $this->sendResponse(true,$category,'category updated successful',200);
@@ -108,11 +96,7 @@ class AdminCategoryController extends Controller
             return  $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $path = $category->getRawOriginal('image');
-
         $category->delete();
-
-        $this->deleteFile($path);
  
         return $this->sendResponse(true,$category,'category deleted successful',200);
     }

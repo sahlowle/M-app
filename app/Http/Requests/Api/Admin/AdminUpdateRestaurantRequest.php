@@ -30,7 +30,7 @@ class AdminUpdateRestaurantRequest extends FormRequest
             'description' => ['array'],
             'lat' => ['max:120'],
             'lng' => ['max:120'],
-            'website_url' => ['url'],
+            'address' => ['string','max:190'],
             'phone_one' => ['numeric','digits_between:9,20'],
             'phone_two' => ['numeric','digits_between:9,20'],
             'phone_three' => ['numeric','digits_between:9,20'],

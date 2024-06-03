@@ -56,8 +56,9 @@ class AdminOptionController extends Controller
 
             $this->deleteFile($path);
         }
-
-        $option->update($data);
+        if ($data) {
+            $option->update($data);
+        }
 
         return $this->sendResponse(true,$option,'option updated successful',200);
     }

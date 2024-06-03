@@ -16,16 +16,11 @@ class Message extends Model
         'created_at',
     ];
 
-        /**
-     * Get the user's first name.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function createdAt(): Attribute
+    
+
+    public function getCreatedAtAttribute($value)
     {
-        return Attribute::make(
-            get: fn ($value) => $this->created_at->diffForHumans(),
-        );
+        return $this->created_at->diffForHumans();
     }
 
   

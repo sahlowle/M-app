@@ -60,7 +60,7 @@ class AdminHotelController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $hotel->load('options','slidersx');
+        $hotel->load('options','sliders');
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }

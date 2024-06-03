@@ -30,13 +30,14 @@ class CustomerHotelController extends Controller
      */
     public function show($id)
     {
+        return $this->sendResponse(false ,[] ,"data not found ",404);
         $hotel = Hotel::find($id);
 
         if (is_null($hotel)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $hotel->load('options','sliderss');
+        $hotel->load('options','sliders');
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }

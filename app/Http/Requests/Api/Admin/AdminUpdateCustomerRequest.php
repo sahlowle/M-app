@@ -23,7 +23,7 @@ class AdminUpdateCustomerRequest extends FormRequest
     {
         return [
             'name' => ['min:3'],
-            'email' => ['email','unique:customers,email'],
+            'email' => ['email','unique:customers,email,'.$this->route('id')],
             'mobile' => ['min:9'],
             'gender' => ['in:male,female'],
             'password' =>[ 'min:6','max:20']

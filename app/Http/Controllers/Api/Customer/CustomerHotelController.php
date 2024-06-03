@@ -30,7 +30,6 @@ class CustomerHotelController extends Controller
      */
     public function show($id)
     {
-        return $this->sendResponse(false ,[] ,"data not found ",404);
         $hotel = Hotel::find($id);
 
         if (is_null($hotel)) {

@@ -13,17 +13,29 @@ class Message extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'created_at',
+        // 'created_at',
     ];
 
-    
-
-    public function getCreatedAtAttribute($value)
+        /**
+     * Get the user's first name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function firstName(): Attribute
     {
-        return $this->created_at->diffForHumans();
+        return Attribute::make(
+            get: fn ($value) => $this->created_at->diffForHumans(),
+        );
     }
 
-  
+    // public function name(): Attribute
+    // { 
+    //     diffForHumans
+    //     return new Attribute(
+    //         get: fn ($value) => strtoupper($value),
+    //         set: fn ($value) => $value,
+    //     );
+    // }
 
     
     // public function customer()

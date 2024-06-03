@@ -9,7 +9,7 @@ trait HasTranslations
     public function toArray()
     {
         if (request()->is('api/admin/*')) {
-            return $this->attributesToArray();
+            return array_merge($this->attributesToArray(), $this->relationsToArray());
         }
 
         $attributes = $this->attributesToArray(); // attributes selected by the query

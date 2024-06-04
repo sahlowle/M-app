@@ -37,7 +37,7 @@ class AdminNotificationController extends Controller
     {
         $data = $request->validated();
 
-        // SendFcmNotifications::dispatch($data);
+        SendFcmNotifications::dispatch($data);
 
         return $this->sendResponse(true , $data , 'notification sent successful',200);
        

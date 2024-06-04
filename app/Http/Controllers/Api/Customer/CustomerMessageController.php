@@ -15,7 +15,7 @@ class CustomerMessageController extends Controller
     {
         $customer = $request->user();
 
-        return $per_page = $request->get('per_page',$this->default_per_page);
+        $per_page = $request->get('per_page',$this->default_per_page);
 
         $data = Conversation::with('customer:id,name','latestMessage')
         ->where('customer_id',$customer->id)

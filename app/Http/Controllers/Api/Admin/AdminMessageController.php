@@ -17,7 +17,7 @@ class AdminMessageController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Conversation::with('latestMessage')->latest('id')->paginate($per_page);
+        $data = Conversation::with('customer:id,name','latestMessage')->latest('id')->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

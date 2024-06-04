@@ -10,7 +10,13 @@ class Conversation extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
     
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public function messages()
     {
         return $this->hasMany(Message::class);

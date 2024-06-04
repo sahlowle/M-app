@@ -21,9 +21,9 @@ class AdminNotificationController extends Controller
     public function index(Request $request)
     {
 
-        $data = Museum::with('sliders')->first();
+        // $data = Museum::with('sliders')->first();
 
-        return $this->sendResponse(true,$data,'data retrieved successful',200);
+        // return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
 
     /**
@@ -36,7 +36,7 @@ class AdminNotificationController extends Controller
     {
         $data = $request->validated();
        
-    //    return $this->sendResponse(true , $museum , 'museum created successful',200);
+       return $this->sendResponse(true , $data , 'notification sent successful',200);
        
     }
 

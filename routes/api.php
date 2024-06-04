@@ -48,13 +48,13 @@ Route::prefix('customer')->as('customer.')->group(function () {
     | Chats routes
     |--------------------------------------------------------------------------
     */
-    Route::controller(CustomerMessageController::class)->group(function () {
+    Route::middleware(['auth:sanctum'])->controller(CustomerMessageController::class)->group(function () {
         Route::get('get-all-conversations','getAllConversation');
         Route::get('get-conversation-chats/{id}','getConversationChats');
         Route::post('send-message','sendMessage');
         Route::post('update-message/{id}','updateMessage');
         Route::delete('delete-message/{id}','deleteMessage');
-    })->middleware(['auth:sanctum']);
+    });
 
 });
 

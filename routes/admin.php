@@ -61,6 +61,6 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::get('get-conversation-chats/{id}',[AdminMessageController::class,'getConversationChats']);
         Route::post('send-message',[AdminMessageController::class,'sendMessage']);
         Route::post('update-message/{id}',[AdminMessageController::class,'updateMessage']);
-        Route::delete('delete-message',[AdminMessageController::class,'deleteMessage']);
+        Route::delete('delete-message/{id}',[AdminMessageController::class,'deleteMessage']);
     });
 });

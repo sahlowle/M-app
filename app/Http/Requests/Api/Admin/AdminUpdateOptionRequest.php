@@ -24,6 +24,14 @@ class AdminUpdateOptionRequest extends FormRequest
         return [
             'hotel_id' => ['exists:hotels,id'],
             'name' => ['array:en,ar,fr,ur,tr,sw'],
+                       
+            'name.en' => ['string','max:190'],
+            'name.ar' => ['string','max:190'],
+            'name.fr' => ['string','max:190'],
+            'name.ur' => ['string','max:190'],
+            'name.tr' => ['string','max:190'],
+            'name.sw' => ['string','max:190'],
+
             'image' => ['image'],
             'total_count' => ['numeric'],
         ];

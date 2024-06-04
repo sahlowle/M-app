@@ -71,5 +71,9 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
             Route::delete('delete-message/{id}','deleteMessage');
         });
 
+
+            /*|----- send-notifications routes |----*/
+            Route::get('send-notifications',[AdminNotificationController::class,'index']);
+
     });
 });

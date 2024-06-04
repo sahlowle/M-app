@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminStoreHotelRequest extends FormRequest
+class AdminStoreNotificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,27 +19,20 @@ class AdminStoreHotelRequest extends FormRequest
         return auth()->check();
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
     public function rules()
     {
         return [
-            'name' => ['required','array:en,ar,fr,ur,tr,sw'],
-            'image' => ['required','image'],
-            'description' => ['required','array'],
-            'price' => ['required','numeric'],
-            'lat' => ['required','max:120'],
-            'lng' => ['required','max:120'],
-            'booking_url' => ['required','url'],
-            'stars_count' => ['required','numeric'],
-            'rate_stars_count' => ['required','numeric'],
-            'users_ratings_count' => ['required','numeric'],
-            'phone_one' => ['numeric','digits_between:9,20'],
-            'phone_two' => ['numeric','digits_between:9,20'],
-            'phone_three' => ['numeric','digits_between:9,20'],
+            'title' => ['required','string','max:100'],
+            'body' => ['required','string','max:1000'],
         ];
-
-        
     }
 
+        
    /*
     |--------------------------------------------------------------------------
     | handel json form of validation error

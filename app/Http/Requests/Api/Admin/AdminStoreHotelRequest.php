@@ -22,26 +22,11 @@ class AdminStoreHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array:en,ar,fr,ur,tr,sw'],
-
-            'name.en' => ['required','string','max:190'],
-            'name.ar' => ['required','string','max:190'],
-            'name.fr' => ['required','string','max:190'],
-            'name.ur' => ['required','string','max:190'],
-            'name.tr' => ['required','string','max:190'],
-            'name.sw' => ['required','string','max:190'],
+            'name' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
 
             'image' => ['required','image'],
 
-            'description' => ['required','array:en,ar,fr,ur,tr,sw'],
-            
-            'description.en' => ['required','string','max:1000'],
-            'description.ar' => ['required','string','max:1000'],
-            'description.fr' => ['required','string','max:1000'],
-            'description.ur' => ['required','string','max:1000'],
-            'description.tr' => ['required','string','max:1000'],
-            'description.sw' => ['required','string','max:1000'],
-
+            'description' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
             'price' => ['required','numeric'],
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],

@@ -27,34 +27,14 @@ class AdminStoreMallRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array:en,ar,fr,ur,tr,sw'],
-
-            'name.en' => ['required','string','max:190'],
-            'name.ar' => ['required','string','max:190'],
-            'name.fr' => ['required','string','max:190'],
-            'name.ur' => ['required','string','max:190'],
-            'name.tr' => ['required','string','max:190'],
-            'name.sw' => ['required','string','max:190'],
-
+            
+            'name' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
             'mall_name' => ['required','array:en,ar,fr,ur,tr,sw'],
-
-            'mall_name.en' => ['required','string','max:190'],
-            'mall_name.ar' => ['required','string','max:190'],
-            'mall_name.fr' => ['required','string','max:190'],
-            'mall_name.ur' => ['required','string','max:190'],
-            'mall_name.tr' => ['required','string','max:190'],
-            'mall_name.sw' => ['required','string','max:190'],
+            'description' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
 
             'category_id' => ['required','exists:categories,id'],
             'image' => ['required','image'],
-            'description' => ['required','array:en,ar,fr,ur,tr,sw'],
-            
-            'description.en' => ['required','string','max:1000'],
-            'description.ar' => ['required','string','max:1000'],
-            'description.fr' => ['required','string','max:1000'],
-            'description.ur' => ['required','string','max:1000'],
-            'description.tr' => ['required','string','max:1000'],
-            'description.sw' => ['required','string','max:1000'],
+
 
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],

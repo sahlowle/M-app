@@ -26,15 +26,8 @@ class AdminStoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array:en,ar,fr,ur,tr,sw'],
+            'name' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
 
-            'name.en' => ['required','string','max:190'],
-            'name.ar' => ['required','string','max:190'],
-            'name.fr' => ['required','string','max:190'],
-            'name.ur' => ['required','string','max:190'],
-            'name.tr' => ['required','string','max:190'],
-            'name.sw' => ['required','string','max:190'],
-            
             // 'image' => ['required','image'],
         ];
     }

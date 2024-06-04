@@ -27,10 +27,10 @@ class AdminUpdateMuseumRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['array'],
+            'name' => ['array:en,ar,fr,ur,tr,sw'],
             'category_id' => ['exists:categories,id'],
             'image' => ['image'],
-            'description' => ['array'],
+            'description' => ['array:en,ar,fr,ur,tr,sw'],
             'lat' => ['max:120'],
             'lng' => ['max:120'],
             'website_url' => ['url'],

@@ -27,9 +27,9 @@ class AdminStoreMuseumRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array'],
+            'name' => ['required','array:en,ar,fr,ur,tr,sw'],
             'image' => ['required','image'],
-            'description' => ['required','array'],
+            'description' => ['required','array:en,ar,fr,ur,tr,sw'],
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],
         ];

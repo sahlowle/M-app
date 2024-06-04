@@ -22,9 +22,9 @@ class AdminUpdateHotelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['array'],
+            'name' => ['array:en,ar,fr,ur,tr,sw'],
             'image' => ['image'],
-            'description' => ['array'],
+            'description' => ['array:en,ar,fr,ur,tr,sw'],
             'price' => ['numeric'],
             'lat' => ['max:120'],
             'lng' => ['max:120'],

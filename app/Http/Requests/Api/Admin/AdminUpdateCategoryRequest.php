@@ -26,7 +26,7 @@ class AdminUpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['array'],
+            'name' => ['array:en,ar,fr,ur,tr,sw'],
             // 'image' => ['image'],
         ];
     }

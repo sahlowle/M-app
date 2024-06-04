@@ -23,7 +23,7 @@ class AdminUpdateOptionRequest extends FormRequest
     {
         return [
             'hotel_id' => ['exists:hotels,id'],
-            'name' => ['array'],
+            'name' => ['array:en,ar,fr,ur,tr,sw'],
             'image' => ['image'],
             'total_count' => ['numeric'],
         ];

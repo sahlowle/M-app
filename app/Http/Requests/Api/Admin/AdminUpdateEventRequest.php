@@ -22,9 +22,9 @@ class AdminUpdateEventRequest extends FormRequest
     {
         
         return [
-            'name' => ['array'],
+            'name' => ['array:en,ar,fr,ur,tr,sw'],
             'image' => ['image'],
-            'description' => ['array'],
+            'description' => ['array:en,ar,fr,ur,tr,sw'],
             'address' => ['string','max:190'],
             'lat' => ['max:120'],
             'lng' => ['max:120'],

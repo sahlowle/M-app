@@ -31,7 +31,7 @@ class AdminStoreRestaurantRequest extends FormRequest
             // 'mall_name' => ['required','array'],
             'category_id' => ['required','exists:categories,id'],
             'image' => ['required','image'],
-            'description' => ['required','array'],
+            'description' => ['required','array:en,ar,fr,ur,tr,sw'],
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],
             'address' => ['required','string','max:190'],

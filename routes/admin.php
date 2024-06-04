@@ -73,8 +73,8 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         });
 
 
-            /*|----- send-notifications routes |----*/
-            Route::post('send-notifications',[AdminNotificationController::class,'index']);
+        /*|----- send-notifications routes |----*/
+        Route::post('send-notifications',[AdminNotificationController::class,'store']);
 
     });
 });

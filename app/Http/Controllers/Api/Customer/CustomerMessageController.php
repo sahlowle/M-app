@@ -13,7 +13,7 @@ class CustomerMessageController extends Controller
 {
     public function getAllConversation(Request $request)
     {
-        $customer = $request->user();
+        return $customer = $request->user();
 
         $per_page = $request->get('per_page',$this->default_per_page);
 

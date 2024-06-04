@@ -22,10 +22,10 @@ class SendFcmNotifications implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($title,$body)
+    public function __construct($data)
     {
-        $this->title = $title;
-        $this->body =$body;
+        $this->title = $data['title'];
+        $this->body = $data['body'];
     }
 
     /**
@@ -39,9 +39,43 @@ class SendFcmNotifications implements ShouldQueue
         ->orderBy('id')
         ->chunk(100, function (Collection $customers) { 
             $tokens = $customers->pluck('fcm_token');
-
-            // FcmNotifications::send($this->title,$this->body,$tokens);
+            
+            $this->sendNotification($this->title,$this->body,$tokens);
             
         });
+    }
+
+    public function sendNotification($title,$body,Collection $firebaseTokens)
+    {
+            
+        $SERVER_API_KEY = config('services.FCM_SERVER_KEY');
+
+        $data = [
+            "registration_ids" => $firebaseTokens->toArray(),
+            "notification" => [
+                "title" => $title,
+                "body" => $body,  
+            ]
+        ];
+
+        $dataString = json_encode($data);
+    
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+    
+        $ch = curl_init();
+        
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                
+        $response = curl_exec($ch);
+
+        // Log::info($response);    
     }
 }

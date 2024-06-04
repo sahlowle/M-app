@@ -68,7 +68,7 @@ class AdminMessageController extends Controller
 
         $admin_id = $request->user()->id;
 
-        if ($message->sender_id != $admin_id) {
+        if ($message->sender_id != 'admin'  && $message->sender_id != $admin_id) {
             abort(403);
         }
 
@@ -90,7 +90,7 @@ class AdminMessageController extends Controller
 
         $admin_id = $request->user()->id;
 
-        if ($message->sender_id != $admin_id) {
+        if ($message->sender_id != 'admin'  && $message->sender_id != $admin_id) {
             abort(403);
         }
 

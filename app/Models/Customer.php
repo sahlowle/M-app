@@ -38,4 +38,10 @@ class Customer extends Authenticatable
         return !$this->isVerified();
     }
 
+  
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class);
+    }
+
 }

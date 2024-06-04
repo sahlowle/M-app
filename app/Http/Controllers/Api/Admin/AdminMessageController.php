@@ -22,6 +22,21 @@ class AdminMessageController extends Controller
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
 
+    public function getConversationChats(Request $request,$id)
+    {
+        $conversation = Conversation::find($id);
+
+        if (is_null($conversation)) {
+            return $this->sendResponse(false ,[] ,"data not found ",404);
+        }
+
+        $per_page = $request->get('per_page',$this->default_per_page);
+
+        $data = $conversation->messages()->latest('id')->paginate($per_page);
+
+        return $this->sendResponse(true,$data,'data retrieved successful',200);
+    }
+
 
     public function sendMessage(AdminStoreMessageRequest $request)
     {

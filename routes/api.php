@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Customer\CustomerMallController;
 use App\Http\Controllers\Api\Customer\CustomerMuseumController;
 use App\Http\Controllers\Api\Customer\CustomerSettingController;
 use App\Http\Controllers\Api\Customer\CustomerEventController;
+use App\Http\Controllers\Api\Customer\CustomerMessageController;
 use Illuminate\Support\Facades\Cache;
 
 /*
@@ -41,19 +42,19 @@ Route::prefix('customer')->as('customer.')->group(function () {
 
     /*|----- settings routes |----*/
     Route::get('settings',[CustomerSettingController::class,'index']);
-});
 
-
-
-Route::post('/webhook', function () {
-
-    $data = request()->all();
-
-    if($data){
-        Cache::put('webhook',$data,now()->addYear());
-    }
-    
-    return "<h1> webhook added </h1>";
+    /*
+    |--------------------------------------------------------------------------
+    | Chats routes
+    |--------------------------------------------------------------------------
+    */
+    Route::controller(CustomerMessageController::class)->group(function () {
+        Route::get('get-all-conversations','getAllConversation');
+        Route::get('get-conversation-chats/{id}','getConversationChats');
+        Route::post('send-message','sendMessage');
+        Route::post('update-message/{id}','updateMessage');
+        Route::delete('delete-message/{id}','deleteMessage');
+    });
 });
 
 

@@ -57,10 +57,19 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::apiResource('administrators',AdministratorController::class)->except(['update']);
         Route::post('administrators/{id}',[AdministratorController::class,'update']);
 
-        Route::get('get-all-conversations',[AdminMessageController::class,'getAllConversation']);
-        Route::get('get-conversation-chats/{id}',[AdminMessageController::class,'getConversationChats']);
-        Route::post('send-message',[AdminMessageController::class,'sendMessage']);
-        Route::post('update-message/{id}',[AdminMessageController::class,'updateMessage']);
-        Route::delete('delete-message/{id}',[AdminMessageController::class,'deleteMessage']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Chats routes
+        |--------------------------------------------------------------------------
+        */
+        Route::controller(AdminMessageController::class)->group(function () {
+            Route::get('get-all-conversations','getAllConversation');
+            Route::get('get-conversation-chats/{id}','getConversationChats');
+            Route::post('send-message','sendMessage');
+            Route::post('update-message/{id}','updateMessage');
+            Route::delete('delete-message/{id}','deleteMessage');
+        });
+
     });
 });

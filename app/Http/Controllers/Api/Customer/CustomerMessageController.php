@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\AdminStoreMessageRequest;
@@ -9,9 +9,8 @@ use App\Models\Message;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 
-class AdminMessageController extends Controller
+class CustomerMessageController extends Controller
 {
-
     public function getAllConversation(Request $request)
     {
         $per_page = $request->get('per_page',$this->default_per_page);
@@ -98,5 +97,4 @@ class AdminMessageController extends Controller
 
         return $this->sendResponse(true,$message,'message deleted successful',200);
     }
-
 }

@@ -54,7 +54,7 @@ Route::prefix('customer')->as('customer.')->group(function () {
         Route::post('send-message','sendMessage');
         Route::post('update-message/{id}','updateMessage');
         Route::delete('delete-message/{id}','deleteMessage');
-    })->middleware('auth:sanctum');
+    })->middleware(['auth:sanctum']);
 
 });
 

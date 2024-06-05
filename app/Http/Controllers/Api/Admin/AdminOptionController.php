@@ -41,7 +41,7 @@ class AdminOptionController extends Controller
      */
     public function update(AdminUpdateOptionRequest $request, $id)
     {
-        $option = Option::first();
+        $option = Option::find($id);
 
         if (is_null($option)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);

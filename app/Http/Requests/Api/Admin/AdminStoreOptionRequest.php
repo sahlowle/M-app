@@ -23,7 +23,7 @@ class AdminStoreOptionRequest extends FormRequest
     {
         return [
             'hotel_id' => ['required','exists:hotels,id'],
-            'name' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'name' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'image' => ['required','image'],
             'total_count' => ['required','numeric'],
         ];

@@ -26,11 +26,11 @@ class AdminStoreEventRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'name' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
 
             'image' => ['required','image'],
 
-            'description' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'description' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
 
             'lat' => ['required','max:120'],
             'lng' => ['required','max:120'],

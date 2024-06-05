@@ -27,8 +27,8 @@ class AdminStoreRestaurantRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
-            'description' => ['required','array','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'name' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'description' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             
             'category_id' => ['required','exists:categories,id'],
             'image' => ['required','image'],

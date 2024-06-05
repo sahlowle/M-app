@@ -27,8 +27,8 @@ class AdminUpdateMuseumRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['array','required_array_keys:en,ar,fr,ur,tr,sw'],
-            'description' => ['array','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'category_id' => ['exists:categories,id'],
             'image' => ['image'],
             'lat' => ['max:120'],

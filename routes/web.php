@@ -38,7 +38,7 @@ Route::get('/', function () {
 
     // Artisan::call('migrate');
 
-    return "<h1> hi </h1>"
+    return "<h1> hi </h1>";
     
     return view('welcome');
 });

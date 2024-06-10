@@ -31,12 +31,16 @@ Route::get('/', function () {
 
     Artisan::call('optimize:clear');
 
+    Artisan::call('config:cache');
+
     Artisan::call('config:clear');
 
     // $mail = Mail::to('sah@mid.com')->send(new SendOtp(1234));
     // return dd($mail);
 
     // Artisan::call('migrate');
+
+    return now()->toDateTimeString();
 
     return config()->get('app.timezone');
     

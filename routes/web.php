@@ -30,10 +30,15 @@ Route::any('/get-webhook', function () {
 Route::get('/', function () {
 
     Artisan::call('optimize:clear');
+
+    Artisan::call('config:clear');
+
     // $mail = Mail::to('sah@mid.com')->send(new SendOtp(1234));
     // return dd($mail);
 
     // Artisan::call('migrate');
+
+    return "<h1> hi </h1>"
     
     return view('welcome');
 });

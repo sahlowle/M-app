@@ -23,7 +23,7 @@
                   </div>
                   <div style="padding: 20px; background-color: rgb(255, 255, 255);">
                     <div style="color: rgb(0, 0, 0); text-align: left;">
-                      <h1 style="margin: 1rem 0">Verification code</h1>
+                      <h1 style="margin: 1rem 0"> Verification code </h1>
                       <p style="padding-bottom: 16px">
                         To verify your email address in Jabal Omar mobile application, enter the following code:
                     </p>

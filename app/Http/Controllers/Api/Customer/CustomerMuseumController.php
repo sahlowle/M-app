@@ -17,7 +17,7 @@ class CustomerMuseumController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Museum::with('category:id,name')->paginate($per_page);
+        $data = Museum::paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -36,7 +36,7 @@ class CustomerMuseumController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $museum->load('category:id,name','sliders');
+        $museum->load('sliders');
 
         return $this->sendResponse(true,$museum,'museum retrieved successful',200);
     }

@@ -2,22 +2,11 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Customer;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\LoginUserRequest;
-use App\Http\Requests\Api\RegisterCustomerRequest;
-use App\Http\Requests\Api\ForgetPasswordRequest;
-use App\Http\Requests\Api\GoogleLoginRequest;
-use App\Http\Requests\Api\ResetPasswordRequest;
-use App\Http\Requests\Api\VerifyLoginOtpRequest;
-use App\Http\Requests\Api\VerifyResetPasswordOtpRequest;
-use App\Mail\SendOtp;
-use App\Services\OTP;
+use App\Http\Requests\Api\Admin\LoginAdminRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
-use Laravel\Socialite\Facades\Socialite;
 
 class AdminAuthController extends Controller
 {
@@ -26,7 +15,7 @@ class AdminAuthController extends Controller
    | login admin
    |--------------------------------------------------------------------------
    */
-  public function login(LoginUserRequest $request)
+  public function login(LoginAdminRequest $request)
   {
       $data = $request->only(['email', 'password']);
 

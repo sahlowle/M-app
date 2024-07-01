@@ -109,7 +109,9 @@ class AuthController extends Controller
             return $this->sendResponse(false,[],'please verify your account',403);
         }
 
-        $customer->update($request->only(['fcm_token','device_token']));
+        if ($request->filled(['fcm_token','device_token'])) {
+            $customer->update($request->only(['fcm_token','device_token']));
+        }
 
         $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
@@ -178,7 +180,7 @@ class AuthController extends Controller
     | handel login by google
     |--------------------------------------------------------------------------
     */
-    public function handleGoogleCallback(GoogleLoginRequest $request) 
+    public function handleGoogleLogin(GoogleLoginRequest $request) 
     {
         $accessToken = $request->access_token;
 

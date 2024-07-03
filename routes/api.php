@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Customer\CustomerMuseumController;
 use App\Http\Controllers\Api\Customer\CustomerSettingController;
 use App\Http\Controllers\Api\Customer\CustomerEventController;
 use App\Http\Controllers\Api\Customer\CustomerMessageController;
+use App\Http\Controllers\Api\Customer\CustomerRestaurantsController;
 use Illuminate\Support\Facades\Cache;
 
 /*
@@ -36,6 +37,7 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
     Route::apiResource('events',CustomerEventController::class)->only('show','index');
+    Route::apiResource('restaurants',CustomerRestaurantsController::class)->only('show','index');
     
     /*|----- settings routes |----*/
     Route::get('categories',[CustomerCategoryController::class,'index']);

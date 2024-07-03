@@ -38,7 +38,9 @@ class Mall extends Model
             $query->where('category_id',$request->category_id);
         }
 
-        $query->where('name->'.app()->getLocale(), 'like', '%'.$request->name.'%');
+        if ($request->filled('request')) {
+            $query->where('name->'.app()->getLocale(), 'like', '%'.$request->name.'%');
+        }
     }
 
 }

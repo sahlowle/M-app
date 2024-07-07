@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\AdminStoreCategoryRequest;
 use App\Http\Requests\Api\Admin\AdminUpdateCategoryRequest;
+use App\Http\Requests\Api\Admin\AdminGetCategoryRequest;
 use App\Models\Category;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
@@ -19,11 +20,11 @@ class AdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request  $request)
+    public function index(AdminGetCategoryRequest  $request)
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Category::paginate($per_page);
+        $data = Category::where('type',$request->type)->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

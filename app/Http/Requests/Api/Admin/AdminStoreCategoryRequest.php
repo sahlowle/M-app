@@ -26,8 +26,8 @@ class AdminStoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+            'type' => ['required','in:restaurant,mall,service'],
             'name' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
-
             // 'image' => ['required','image'],
         ];
     }

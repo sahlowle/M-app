@@ -12,6 +12,10 @@ class Category extends Model
 
     use HasTranslations;
 
+    const MALL_TYPE = 'mall';
+    const SERVICE_TYPE = 'service';
+    const RESTAURANT_TYPE = 'restaurant';
+
     public $translatable = ['name'];
 
     protected $guarded = ['id'];

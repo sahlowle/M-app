@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminUpdateCategoryRequest extends FormRequest
+class AdminGetCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,10 @@ class AdminUpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['in:restaurant,mall,service'],
-            'name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
-      
-            // 'image' => ['image'],
+            'type' => ['required','in:restaurant,mall,service'],
         ];
     }
-
-    /*
+   /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
     |--------------------------------------------------------------------------

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Admin\AdministratorController;
 use App\Http\Controllers\Api\Admin\AdminMessageController;
 use App\Http\Controllers\Api\Admin\AdminNotificationController;
 use App\Http\Controllers\Api\Admin\AdminRestaurantController;
+use App\Http\Controllers\Api\Admin\AdminServicesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -44,6 +45,9 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('restaurants',AdminRestaurantController::class)->except(['update']);
         Route::post('restaurants/{id}',[AdminRestaurantController::class,'update']);
+        
+        Route::apiResource('services',AdminServicesController::class)->except(['update']);
+        Route::post('services/{id}',[AdminServicesController::class,'update']);
 
         Route::apiResource('events',AdminEventController::class)->except(['update']);
         Route::post('events/{id}',[AdminEventController::class,'update']);

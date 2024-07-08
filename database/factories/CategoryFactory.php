@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,6 +17,12 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $arr = [
+            Category::SERVICE_TYPE,
+            Category::SERVICE_TYPE,
+            Category::SERVICE_TYPE,
+        ];
+
         return [
             'name' => [
                 'en' => 'name in en',
@@ -26,6 +33,9 @@ class CategoryFactory extends Factory
                 'sw' => 'name in sw',
             ],
             
+            'type' => $arr[array_rand($arr)],
+
+
             'image' => 'files/categories_images/image.png'
         ];
     }

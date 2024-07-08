@@ -15,7 +15,7 @@ class CustomerCategoryController extends Controller
      */
     public function index(Request $request)
     {     
-        $data = Category::get();
+        $data = Category::where('type',$request->type)->get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

@@ -24,7 +24,7 @@ class AdminCategoryController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Category::where('type',$request->type)->paginate($per_page);
+        $data = Category::where('type',$request->type)->get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

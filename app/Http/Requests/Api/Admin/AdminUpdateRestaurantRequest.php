@@ -24,7 +24,7 @@ class AdminUpdateRestaurantRequest extends FormRequest
     {
         return [
             'name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
-            // 'mall_name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+            'mall_name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'category_id' => ['exists:categories,id'],
             'image' => ['image'],

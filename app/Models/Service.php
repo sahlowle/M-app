@@ -13,7 +13,7 @@ class Service extends Model
 
     use HasTranslations;
 
-    public $translatable = ['name','description'];
+    public $translatable = ['name','description','mall_name'];
 
     protected $guarded = ['id'];
 
@@ -22,7 +22,6 @@ class Service extends Model
         return url("")."/".$value;
     }
 
-   
     public function category()
     {
         return $this->belongsTo(Category::class);

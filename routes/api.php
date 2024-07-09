@@ -38,6 +38,7 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
     Route::apiResource('events',CustomerEventController::class)->only('show','index');
     Route::apiResource('restaurants',CustomerRestaurantsController::class)->only('show','index');
+    Route::apiResource('services',CustomerServiceController::class)->only('show','index');
     
     /*|----- settings routes |----*/
     Route::get('categories',[CustomerCategoryController::class,'index']);

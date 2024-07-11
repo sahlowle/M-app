@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Customer\CustomerSettingController;
 use App\Http\Controllers\Api\Customer\CustomerEventController;
 use App\Http\Controllers\Api\Customer\CustomerMessageController;
 use App\Http\Controllers\Api\Customer\CustomerRestaurantsController;
+use App\Http\Controllers\Api\Customer\CustomerServiceController;
 use Illuminate\Support\Facades\Cache;
 
 /*

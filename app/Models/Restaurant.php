@@ -39,7 +39,7 @@ class Restaurant extends Model
             $query->where('category_id',$request->category_id);
         }
 
-        if ($request->filled('request')) {
+        if ($request->filled('name')) {
             $query->where('name->'.app()->getLocale(), 'like', '%'.$request->name.'%');
         }
 

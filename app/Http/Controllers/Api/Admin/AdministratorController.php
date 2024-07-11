@@ -23,7 +23,7 @@ class AdministratorController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = User::select(['id','name','email'])->paginate($per_page);
+        $data = User::select(['id','name','email'])->get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

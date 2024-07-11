@@ -22,7 +22,7 @@ class AdminHotelController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Hotel::paginate($per_page);
+        $data = Hotel::get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

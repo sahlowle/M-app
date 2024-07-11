@@ -20,7 +20,7 @@ class AdminCustomerController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Customer::paginate($per_page);
+        $data = Customer::get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

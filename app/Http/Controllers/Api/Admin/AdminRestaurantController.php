@@ -21,7 +21,7 @@ class AdminRestaurantController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Restaurant::with('category:id,name')->filter($request)->paginate($per_page);
+        $data = Restaurant::with('category:id,name')->filter($request)->get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

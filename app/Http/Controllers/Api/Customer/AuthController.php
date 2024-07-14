@@ -14,7 +14,6 @@ use App\Http\Requests\Api\VerifyLoginOtpRequest;
 use App\Http\Requests\Api\VerifyResetPasswordOtpRequest;
 use App\Mail\SendOtp;
 use App\Services\OTP;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
@@ -185,11 +184,11 @@ class AuthController extends Controller
     {
         $accessToken = $request->access_token;
 
-        try{
+        try {
             $googleUser = Socialite::driver('google')->userFromToken($accessToken);
         }
-        catch (Exception $e){
-            return $this->sendResponse(false,[],'auth failed',401);
+        catch (\Exception $e) {
+            return $this->sendResponse(false,$googleUser,'auth failed',401);
         }
 
         $customer = Customer::where('email', $googleUser->getEmail())->first();
@@ -223,10 +222,10 @@ class AuthController extends Controller
     {
         $accessToken = $request->access_token;
 
-        try{
+        try {
             $appleUser = Socialite::driver('apple')->userFromToken($accessToken);
         }
-        catch (Exception $e){
+        catch (\Exception $e) {
             return $this->sendResponse(false,[],'auth failed',401);
         }
 

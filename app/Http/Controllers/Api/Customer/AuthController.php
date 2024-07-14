@@ -14,6 +14,7 @@ use App\Http\Requests\Api\VerifyLoginOtpRequest;
 use App\Http\Requests\Api\VerifyResetPasswordOtpRequest;
 use App\Mail\SendOtp;
 use App\Services\OTP;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
@@ -184,7 +185,12 @@ class AuthController extends Controller
     {
         $accessToken = $request->access_token;
 
-        $googleUser = Socialite::driver('google')->userFromToken($accessToken);
+        try{
+            $googleUser = Socialite::driver('google')->userFromToken($accessToken);
+        }
+        catch (Exception $e){
+            return $this->sendResponse(false,[],'auth failed',401);
+        }
 
         $customer = Customer::where('email', $googleUser->getEmail())->first();
 
@@ -208,7 +214,43 @@ class AuthController extends Controller
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | handel login by Apple
+    |--------------------------------------------------------------------------
+    */
+    public function handleAppleLogin(GoogleLoginRequest $request) 
+    {
+        $accessToken = $request->access_token;
 
+        try{
+            $appleUser = Socialite::driver('apple')->userFromToken($accessToken);
+        }
+        catch (Exception $e){
+            return $this->sendResponse(false,[],'auth failed',401);
+        }
+
+        $customer = Customer::where('email', $appleUser->getEmail())->first();
+
+        if ($customer)
+        {
+            $customer->update([
+                'is_verified' => true
+            ]);
+        }
+        else
+        {
+            $customer = Customer::create([
+                'name' => $appleUser->getName(),
+                'email' => $appleUser->getEmail(),
+                'is_verified' => true
+            ]);
+        }
+
+        $customer['token'] = $customer->createToken("login-token")->plainTextToken;
+
+        return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
+    }
 
 
 }

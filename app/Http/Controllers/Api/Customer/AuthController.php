@@ -188,7 +188,7 @@ class AuthController extends Controller
             $googleUser = Socialite::driver('google')->userFromToken($accessToken);
         }
         catch (\Exception $e) {
-            return $this->sendResponse(false,$googleUser,'auth failed',401);
+            return $this->sendResponse(false,$e,'auth failed',401);
         }
 
         $customer = Customer::where('email', $googleUser->getEmail())->first();

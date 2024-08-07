@@ -7,32 +7,33 @@ use App\Http\Requests\Api\CustomerStoreMessageRequest;
 use App\Http\Requests\Api\Admin\AdminUpdateMessageRequest;
 use App\Models\Message;
 use App\Models\Conversation;
+use App\Models\CustomerNotification;
 use Illuminate\Http\Request;
 
 class CustomerMessageController extends Controller
 {
-    public function getAllConversation(Request $request)
+    // public function getAllConversation(Request $request)
+    // {
+    //     $customer = $request->user();
+
+    //     $per_page = $request->get('per_page',$this->default_per_page);
+
+    //     $data = Conversation::with('customer:id,name','latestMessage')
+    //     ->where('customer_id',$customer->id)
+    //     ->latest('id')
+    //     ->paginate($per_page);
+
+    //     return $this->sendResponse(true,$data,'data retrieved successful',200);
+    // }
+
+    public function getConversationChats(Request $request)
     {
         $customer = $request->user();
 
-        $per_page = $request->get('per_page',$this->default_per_page);
-
-        $data = Conversation::with('customer:id,name','latestMessage')
-        ->where('customer_id',$customer->id)
-        ->latest('id')
-        ->paginate($per_page);
-
-        return $this->sendResponse(true,$data,'data retrieved successful',200);
-    }
-
-    public function getConversationChats(Request $request,$id)
-    {
-        $customer = $request->user();
-
-        $conversation = $customer->conversations()->find($id);
+        $conversation = $customer->conversations()->first();
 
         if (is_null($conversation)) {
-            return $this->sendResponse(false ,[] ,"data not found ",404);
+            return $this->sendResponse(true ,[] ,"data not found ",200);
         }
 
         $per_page = $request->get('per_page',$this->default_per_page);
@@ -107,5 +108,14 @@ class CustomerMessageController extends Controller
         $message->delete();
 
         return $this->sendResponse(true,$message,'message deleted successful',200);
+    }
+
+    public function getNotifications(Request $request)
+    {
+        $per_page = $request->get('per_page',$this->default_per_page);
+
+        $data = CustomerNotification::select(['title','body'])->latest('id')->paginate($per_page);
+
+        return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
 }

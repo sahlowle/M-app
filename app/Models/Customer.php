@@ -44,4 +44,9 @@ class Customer extends Authenticatable
         return $this->hasMany(Conversation::class);
     }
 
+    public function hotelClicks()
+    {
+        return $this->belongsToMany(Hotel::class)->withPivot('clicks_count');
+    }
+
 }

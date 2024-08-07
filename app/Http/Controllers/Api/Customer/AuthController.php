@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Customer;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\AppleLoginRequest;
 use App\Http\Requests\Api\LoginUserRequest;
 use App\Http\Requests\Api\RegisterCustomerRequest;
 use App\Http\Requests\Api\ForgetPasswordRequest;
@@ -18,9 +19,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+
+   /*
+   |--------------------------------------------------------------------------
+   | Register new customer
+   |--------------------------------------------------------------------------
+   */
+    public function testApple(Request $request)
+    {
+        $token = $request->token;
+        
+        $customer = Socialite::driver('apple')->userFromToken($token);
+
+        return $this->sendResponse(true,$customer,'User Created Successfully',200);
+    }
 
    /*
    |--------------------------------------------------------------------------
@@ -182,18 +198,11 @@ class AuthController extends Controller
     */
     public function handleGoogleLogin(GoogleLoginRequest $request) 
     {
-        $accessToken = $request->access_token;
 
-        // try {
-            $googleUser = Socialite::driver('google')->userFromToken($accessToken);
+        $name = $request->name;
+        $email = $request->email;
 
-            return $this->sendResponse(false,$googleUser,'auth failed',401); 
-        // }
-        // catch (\Exception $e) {
-        //     return $this->sendResponse(false,$e,'auth failed',401);
-        // }
-
-        $customer = Customer::where('email', $googleUser->getEmail())->first();
+        $customer = Customer::where('email',$email)->first();
 
         if ($customer)
         {
@@ -204,10 +213,14 @@ class AuthController extends Controller
         else
         {
             $customer = Customer::create([
-                'name' => $googleUser->getName(),
-                'email' => $googleUser->getEmail(),
+                'name' => $name,
+                'email' => $email,
                 'is_verified' => true
             ]);
+        }
+        
+        if ($request->filled(['fcm_token','device_token'])) {
+            $customer->update($request->only(['fcm_token','device_token']));
         }
 
         $customer['token'] = $customer->createToken("login-token")->plainTextToken;
@@ -215,42 +228,46 @@ class AuthController extends Controller
         return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
 
-    /*
+/*
     |--------------------------------------------------------------------------
     | handel login by Apple
     |--------------------------------------------------------------------------
     */
-    public function handleAppleLogin(GoogleLoginRequest $request) 
+    public function handleAppleLogin(AppleLoginRequest $request) 
     {
-        $accessToken = $request->access_token;
+        
+        try
+        {
+            $identifyToken = $request->identify_token;
 
-        try {
-            $appleUser = Socialite::driver('apple')->userFromToken($accessToken);
+            $appleUser = Socialite::driver('apple')->userFromToken($identifyToken);
+
+            $customer = Customer::where('email', $appleUser->email)->first();
+
+            if ($customer) {
+                $customer->update([
+                    'is_verified' => true
+                ]);
+            }
+            else {
+                $name = Str::before($appleUser->email, '@');
+
+                $customer = Customer::create([
+                    'name' => $name,
+                    'email' => $appleUser->email,
+                    'is_verified' => true
+                ]);
+            }
+
+            $customer['token'] = $customer->createToken("login-token")->plainTextToken;
+
+            return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
         }
-        catch (\Exception $e) {
+        catch (\Exception $e)
+        {
             return $this->sendResponse(false,[],'auth failed',401);
         }
 
-        $customer = Customer::where('email', $appleUser->getEmail())->first();
-
-        if ($customer)
-        {
-            $customer->update([
-                'is_verified' => true
-            ]);
-        }
-        else
-        {
-            $customer = Customer::create([
-                'name' => $appleUser->getName(),
-                'email' => $appleUser->getEmail(),
-                'is_verified' => true
-            ]);
-        }
-
-        $customer['token'] = $customer->createToken("login-token")->plainTextToken;
-
-        return $this->sendResponse(true,$customer,'User Logged In Successfully',200);
     }
 
 

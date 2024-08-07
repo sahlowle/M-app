@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\Admin\AdminMessageController;
 use App\Http\Controllers\Api\Admin\AdminNotificationController;
 use App\Http\Controllers\Api\Admin\AdminRestaurantController;
 use App\Http\Controllers\Api\Admin\AdminServicesController;
+use App\Http\Controllers\Api\Admin\AdminNewsController;
+use App\Http\Controllers\Api\Admin\AdminSettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,6 +51,9 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         Route::apiResource('services',AdminServicesController::class)->except(['update']);
         Route::post('services/{id}',[AdminServicesController::class,'update']);
 
+        Route::apiResource('news',AdminNewsController::class)->except(['update']);
+        Route::post('news/{id}',[AdminNewsController::class,'update']);
+
         Route::apiResource('events',AdminEventController::class)->except(['update']);
         Route::post('events/{id}',[AdminEventController::class,'update']);
 
@@ -61,6 +66,10 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('administrators',AdministratorController::class)->except(['update']);
         Route::post('administrators/{id}',[AdministratorController::class,'update']);
+        
+        Route::post('settings',[AdminSettingController::class,'update']);
+
+        Route::get('contacts',[AdminSettingController::class,'getContacts']);
 
 
         /*

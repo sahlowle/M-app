@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\ClickHotelRequest;
 
 class CustomerHotelController extends Controller
 {
@@ -39,5 +40,22 @@ class CustomerHotelController extends Controller
         $hotel->load('options','sliders');
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
+    }
+
+    public function clickHotel(ClickHotelRequest $request)
+    {
+        $customer = $request->user();
+
+        $hotel_id = $request->hotel_id;
+
+        $hotel = $customer->hotelClicks()->find($hotel_id);
+
+        if (is_null($hotel)) {
+            $customer->hotelClicks()->attach($hotel_id,['clicks_count' => 1]);
+        } else {
+            $hotel->pivot->increment('clicks_count');
+        }
+
+        return $this->sendResponse(true,$hotel,'request added successful',200);
     }
 }

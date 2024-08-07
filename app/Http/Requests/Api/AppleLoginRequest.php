@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class GoogleLoginRequest extends FormRequest
+class AppleLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,7 @@ class GoogleLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'email' => ['required','email'],
+            'identify_token' => ['required','min:10'],
             'fcm_token' => ['string','min:10','max:250'],
             'device_type' => ['string','in:android,ios'],
         ];

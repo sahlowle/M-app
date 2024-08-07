@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::any('/get-webhook', function () {
+Route::any('/test-email', function () {
     
-    $data = Cache::get('webhook');
+    Mail::to('mis.gxr@gmail.com')->send(new SendOtp(1234));
 
-    return $data;
+    return "<h1> hi </h1>";
 });
 
 Route::get('/', function () {

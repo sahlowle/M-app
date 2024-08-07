@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\AuthController;
 use App\Http\Controllers\Api\Customer\CustomerCategoryController;
+use App\Http\Controllers\Api\Customer\CustomerContactController;
 use App\Http\Controllers\Api\Customer\CustomerMallController;
 use App\Http\Controllers\Api\Customer\CustomerMuseumController;
 use App\Http\Controllers\Api\Customer\CustomerSettingController;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Cache;
 |--------------------------------------------------------------------------
 */
 Route::controller(AuthController::class)->group(function () {
+    Route::get('test-apple', 'testApple');
     Route::post('register', 'register');
     Route::post('login', 'login');
     Route::post('resend-otp', 'resendOtp');
@@ -36,17 +38,24 @@ Route::controller(AuthController::class)->group(function () {
 /*|----- Customer routes |----*/
 Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('hotels',CustomerHotelController::class)->only('show','index');
+    Route::post('click-hotel',[CustomerHotelController::class,'clickHotel'])->middleware('auth:sanctum');
+    Route::post('contacts',[CustomerContactController::class,'store']);
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
     Route::apiResource('events',CustomerEventController::class)->only('show','index');
     Route::apiResource('restaurants',CustomerRestaurantsController::class)->only('show','index');
     Route::apiResource('services',CustomerServiceController::class)->only('show','index');
     
-    /*|----- settings routes |----*/
+    /*|----- categories routes |----*/
     Route::get('categories',[CustomerCategoryController::class,'index']);
 
     /*|----- settings routes |----*/
     Route::get('settings',[CustomerSettingController::class,'index']);
+
+    /*|----- notifications routes |----*/
+    Route::get('notifications',[CustomerMessageController::class,'getNotifications']);
+
+   
 
     /*
     |--------------------------------------------------------------------------
@@ -54,8 +63,8 @@ Route::prefix('customer')->as('customer.')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::middleware(['auth:sanctum'])->controller(CustomerMessageController::class)->group(function () {
-        Route::get('get-all-conversations','getAllConversation');
-        Route::get('get-conversation-chats/{id}','getConversationChats');
+        // Route::get('get-all-conversations','getAllConversation');
+        Route::get('get-conversation-chats','getConversationChats');
         Route::post('send-message','sendMessage');
         Route::post('update-message/{id}','updateMessage');
         Route::delete('delete-message/{id}','deleteMessage');

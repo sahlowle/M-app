@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasTranslations;
 
-class Setting extends Model
+class News extends Model
 {
     use HasFactory;
 
+    use HasTranslations;
+
     protected $guarded = ['id'];
 
-    public static function updateByKey($key,$value)  {
-        return Setting::where('name',$key)->update(['value' => $value ]);
-    }
+    public $translatable = ['title','content'];
 
+    protected $table = "news";
 }

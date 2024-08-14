@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Requests\Api\Admin\AdminUpdateRestaurantRequest;
+use App\Http\Requests\Api\Admin\AdminUpdateNewsRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Admin\AdminStoreRestaurantRequest;
-use App\Models\Service;
+use App\Http\Requests\Api\Admin\AdminStoreNewsRequest;
+use App\Models\News;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class AdminNewsController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Service::with('category:id,name')->filter($request)->get();
+        $data = News::get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -32,17 +32,17 @@ class AdminNewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminStoreRestaurantRequest $request)
+    public function store(AdminStoreNewsRequest $request)
     {
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile('service_images',$request->file('image'));
+            $data['image'] = $this->uploadFile('news_images',$request->file('image'));
         }
 
-        $service = Service::create($data);
+        $news = News::create($data);
 
-        return $this->sendResponse(true,$service,'service created successful',200);
+        return $this->sendResponse(true,$news,'news created successful',200);
     }
 
     /**
@@ -53,15 +53,13 @@ class AdminNewsController extends Controller
      */
     public function show($id)
     {
-        $service = Service::find($id);
+        $news = News::find($id);
 
-        if (is_null($service)) {
+        if (is_null($news)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $service->load('category:id,name','sliders');
-
-        return $this->sendResponse(true,$service,'service retrieved successful',200);
+        return $this->sendResponse(true,$news,'news retrieved successful',200);
     }
 
     /**
@@ -71,27 +69,27 @@ class AdminNewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUpdateRestaurantRequest $request, $id)
+    public function update(AdminUpdateNewsRequest $request, $id)
     {
-        $service = Service::find($id);
+        $news = News::find($id);
 
-        if (is_null($service)) {
+        if (is_null($news)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile('service_images',$request->file('image'));
+            $data['image'] = $this->uploadFile('news_images',$request->file('image'));
 
-            $path = $service->getRawOriginal('image');
+            $path = $news->getRawOriginal('image');
 
             $this->deleteFile($path);
         }
 
-        $service->update($data);
+        $news->update($data);
 
-        return $this->sendResponse(true,$service,'service updated successful',200);
+        return $this->sendResponse(true,$news,'news updated successful',200);
     }
 
     /**
@@ -102,18 +100,18 @@ class AdminNewsController extends Controller
      */
     public function destroy($id)
     {
-        $service = Service::find($id);
+        $news = News::find($id);
 
-        if (is_null($service)) {
+        if (is_null($news)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
         
-        $path = $service->getRawOriginal('image');
+        $path = $news->getRawOriginal('image');
 
-        $service->delete();
+        $news->delete();
 
         $this->deleteFile($path);
 
-        return $this->sendResponse(true,$service,'service deleted successful',200);
+        return $this->sendResponse(true,$news,'news deleted successful',200);
     }
 }

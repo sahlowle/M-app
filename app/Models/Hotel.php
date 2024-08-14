@@ -30,5 +30,10 @@ class Hotel extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    public function customersClicks()
+    {
+        return $this->belongsToMany(Customer::class)->withPivot('clicks_count');
+    }
     
 }

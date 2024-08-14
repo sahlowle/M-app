@@ -17,4 +17,9 @@ class News extends Model
     public $translatable = ['title','content'];
 
     protected $table = "news";
+
+    public function getImageAttribute($value)
+    {
+        return url("")."/".$value;
+    }
 }

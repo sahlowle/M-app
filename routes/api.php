@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\Customer\CustomerHotelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Customer\CustomerHotelController;
 use App\Http\Controllers\Api\Customer\AuthController;
 use App\Http\Controllers\Api\Customer\CustomerCategoryController;
 use App\Http\Controllers\Api\Customer\CustomerContactController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Customer\CustomerMuseumController;
 use App\Http\Controllers\Api\Customer\CustomerSettingController;
 use App\Http\Controllers\Api\Customer\CustomerEventController;
 use App\Http\Controllers\Api\Customer\CustomerMessageController;
+use App\Http\Controllers\Api\Customer\CustomerNewsController;
 use App\Http\Controllers\Api\Customer\CustomerRestaurantsController;
 use App\Http\Controllers\Api\Customer\CustomerServiceController;
 use Illuminate\Support\Facades\Cache;
@@ -41,6 +42,7 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::post('click-hotel',[CustomerHotelController::class,'clickHotel'])->middleware('auth:sanctum');
     Route::post('contacts',[CustomerContactController::class,'store']);
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
+    Route::apiResource('news',CustomerNewsController::class)->only('show','index');
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
     Route::apiResource('events',CustomerEventController::class)->only('show','index');
     Route::apiResource('restaurants',CustomerRestaurantsController::class)->only('show','index');

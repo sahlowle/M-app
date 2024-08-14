@@ -18,7 +18,7 @@ class CustomerHotelController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Hotel::paginate($per_page);
+        $data = Hotel::withSum('customersClicks as total_clicks','customer_hotel.clicks_count')->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -38,6 +38,8 @@ class CustomerHotelController extends Controller
         }
 
         $hotel->load('options','sliders');
+
+        $hotel->loadSum('customersClicks as total_clicks','customer_hotel.clicks_count');
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }

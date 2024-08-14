@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AdminStoreSliderRequest extends FormRequest
+class AdminStoreBenefitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,15 +19,22 @@ class AdminStoreSliderRequest extends FormRequest
         return auth()->check();
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
     public function rules()
     {
         return [
-            'type' => ['required','in:hotel,museum,mall,project'],
-            'id' => ['required','numeric'],
-            'image' => ['required','image'],
+            'title' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+
+            'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+            
+            'image' => ['image'],
         ];
     }
-
+    
    /*
     |--------------------------------------------------------------------------
     | handel json form of validation error

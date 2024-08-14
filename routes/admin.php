@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminAuthController;
+use App\Http\Controllers\Api\Admin\AdminBenefitController;
 use App\Http\Controllers\Api\Admin\AdminCategoryController;
 use App\Http\Controllers\Api\Admin\AdminCustomerController;
 use App\Http\Controllers\Api\Admin\AdminHotelController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Api\Admin\AdminNotificationController;
 use App\Http\Controllers\Api\Admin\AdminRestaurantController;
 use App\Http\Controllers\Api\Admin\AdminServicesController;
 use App\Http\Controllers\Api\Admin\AdminNewsController;
+use App\Http\Controllers\Api\Admin\AdminProjectController;
+use App\Http\Controllers\Api\Admin\AdminSampleController;
 use App\Http\Controllers\Api\Admin\AdminSettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +38,12 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
         
         Route::apiResource('hotels',AdminHotelController::class)->except(['update']);
         Route::post('hotels/{id}',[AdminHotelController::class,'update']);
+
+        Route::apiResource('benefits',AdminBenefitController::class)->except(['update']);
+        Route::post('benefits/{id}',[AdminBenefitController::class,'update']);
+
+        Route::apiResource('projects',AdminProjectController::class)->except(['update']);
+        Route::post('projects/{id}',[AdminProjectController::class,'update']);
 
         Route::apiResource('categories',AdminCategoryController::class)->except(['update']);
         Route::post('categories/{id}',[AdminCategoryController::class,'update']);
@@ -59,7 +68,10 @@ Route::prefix('admin')->as('admin.')->middleware(['api','cors'])->group(function
 
         Route::apiResource('options',AdminOptionController::class)->only(['store','destroy']);
         Route::post('options/{id}',[AdminOptionController::class,'update']);
+
         Route::apiResource('sliders',AdminSliderController::class)->only(['store','destroy']);
+
+        Route::apiResource('samples',AdminSampleController::class)->only(['store','destroy']);
 
         Route::apiResource('customers',AdminCustomerController::class)->except(['store','update']);
         Route::post('customers/{id}',[AdminCustomerController::class,'update']);

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Customer\CustomerHotelController;
 use App\Http\Controllers\Api\Customer\AuthController;
+use App\Http\Controllers\Api\Customer\CustomerBenefitController;
 use App\Http\Controllers\Api\Customer\CustomerCategoryController;
 use App\Http\Controllers\Api\Customer\CustomerContactController;
 use App\Http\Controllers\Api\Customer\CustomerMallController;
@@ -12,7 +13,9 @@ use App\Http\Controllers\Api\Customer\CustomerSettingController;
 use App\Http\Controllers\Api\Customer\CustomerEventController;
 use App\Http\Controllers\Api\Customer\CustomerMessageController;
 use App\Http\Controllers\Api\Customer\CustomerNewsController;
+use App\Http\Controllers\Api\Customer\CustomerProjectController;
 use App\Http\Controllers\Api\Customer\CustomerRestaurantsController;
+use App\Http\Controllers\Api\Customer\CustomerSearchController;
 use App\Http\Controllers\Api\Customer\CustomerServiceController;
 use Illuminate\Support\Facades\Cache;
 
@@ -38,11 +41,14 @@ Route::controller(AuthController::class)->group(function () {
 
 /*|----- Customer routes |----*/
 Route::prefix('customer')->as('customer.')->group(function () {
+    Route::get('global-search',[CustomerSearchController::class,'search']);
     Route::apiResource('hotels',CustomerHotelController::class)->only('show','index');
     Route::post('click-hotel',[CustomerHotelController::class,'clickHotel'])->middleware('auth:sanctum');
     Route::post('contacts',[CustomerContactController::class,'store']);
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
+    Route::apiResource('projects',CustomerProjectController::class)->only('show','index');
     Route::apiResource('news',CustomerNewsController::class)->only('show','index');
+    Route::apiResource('benefits',CustomerBenefitController::class)->only('show','index');
     Route::apiResource('museums',CustomerMuseumController::class)->only('show','index');
     Route::apiResource('events',CustomerEventController::class)->only('show','index');
     Route::apiResource('restaurants',CustomerRestaurantsController::class)->only('show','index');

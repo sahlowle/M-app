@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasTranslations;
+use App\Traits\SearchFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +11,7 @@ class Hotel extends Model
 {
     use HasFactory;
 
-    use HasTranslations;
+    use HasTranslations, SearchFilter;
 
     public $translatable = ['name','description'];
 

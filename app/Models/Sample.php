@@ -2,22 +2,25 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\HasTranslations;
-use App\Traits\SearchFilter;
 
-class News extends Model
+class Sample extends Model
 {
     use HasFactory;
 
-    use HasTranslations, SearchFilter;
+    use HasTranslations;
 
     protected $guarded = ['id'];
 
-    public $translatable = ['title','content'];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
-    protected $table = "news";
+    public $translatable = ['name'];
+
 
     public function getImageAttribute($value)
     {

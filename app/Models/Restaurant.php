@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Traits\HasTranslations;
+use App\Traits\SearchFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class Restaurant extends Model
 {
     use HasFactory;
 
-    use HasTranslations;
+    use HasTranslations, SearchFilter;
 
     public $translatable = ['name','description','mall_name'];
 
@@ -33,15 +33,4 @@ class Restaurant extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    function scopeFilter($query,Request $request) {
-        
-        if ($request->filled('category_id')) {
-            $query->where('category_id',$request->category_id);
-        }
-
-        if ($request->filled('name')) {
-            $query->where('name->'.app()->getLocale(), 'like', '%'.$request->name.'%');
-        }
-
-    }
 }

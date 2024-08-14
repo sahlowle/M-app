@@ -8,6 +8,7 @@ use App\Models\Hotel;
 use App\Models\Image;
 use App\Models\Mall;
 use App\Models\Museum;
+use App\Models\Project;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ class AdminSliderController extends Controller
             'hotel' => Hotel::class,
             'mall' => Mall::class,
             'museum' => Museum::class,
+            'project' => Project::class,
         };
 
         $instance = $model::find($request->id);

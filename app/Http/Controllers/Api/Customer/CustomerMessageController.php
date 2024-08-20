@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
+use App\Events\SendMessage;
+use App\Events\SendMessageToAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CustomerStoreMessageRequest;
 use App\Http\Requests\Api\Admin\AdminUpdateMessageRequest;
 use App\Models\Message;
 use App\Models\Conversation;
 use App\Models\CustomerNotification;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerMessageController extends Controller
@@ -64,6 +67,10 @@ class CustomerMessageController extends Controller
         ];
 
         $message = Message::create($data);
+
+        $admin_id = User::first()->id;
+
+        event(new SendMessageToAdmin($customer->id,$data));
        
        return $this->sendResponse(true , $message , 'message created successful',200);
     }

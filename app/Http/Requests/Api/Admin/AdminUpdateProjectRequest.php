@@ -32,7 +32,18 @@ class AdminUpdateProjectRequest extends FormRequest
             'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             
             'image' => ['image'],
+
+            'status' => ['string','max:50'],
+            'city' => ['string','max:50'],
+            'building_area' => ['numeric',],
+            'land_area' => ['numeric',],
+            'units_count' => ['numeric',],
+            'floors' => ['numeric',],
+            'pdf_file' => ['mimes:pdf','max:10000'],
+            'lat' => ['string','max:120'],
+            'lng' => ['string','max:120'],
         ];
+        
     }
     
    /*

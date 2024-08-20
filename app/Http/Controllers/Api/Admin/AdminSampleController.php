@@ -32,9 +32,9 @@ class AdminSampleController extends Controller
 
         $data['image'] = $this->uploadFile('samples_images',$request->file('image'));
 
-        $project->samples()->create($data);
+        $sample = $project->samples()->create($data);
      
-        return $this->sendResponse(true,[],'project created successful',200);
+        return $this->sendResponse(true,$sample,'sample created successful',200);
     }
     
     /**
@@ -44,18 +44,18 @@ class AdminSampleController extends Controller
      */
     public function destroy($id)
     {
-        $project = Sample::find($id);
+        $sample = Sample::find($id);
 
-        if (is_null($project)) {
+        if (is_null($sample)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
         
-        $path = $project->getRawOriginal('image');
+        $path = $sample->getRawOriginal('image');
 
-        $project->delete();
+        $sample->delete();
 
         $this->deleteFile($path);
 
-        return $this->sendResponse(true,$project,'project deleted successful',200);
+        return $this->sendResponse(true,$sample,'sample deleted successful',200);
     }
 }

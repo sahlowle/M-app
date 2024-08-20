@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('status',100)->default('available');
             $table->string('image',100)->nullable();
             $table->string('city',100);
-            $table->bigInteger('building_area')->nullable();
-            $table->bigInteger('land_area')->nullable();
-            $table->bigInteger('units_count')->nullable();
+            $table->float('building_area')->nullable();
+            $table->float('land_area')->nullable();
+            $table->float('units_count')->nullable();
             // $table->bigInteger('models_count')->nullable();
             $table->bigInteger('floors')->nullable();
             $table->text('pdf_file')->nullable();

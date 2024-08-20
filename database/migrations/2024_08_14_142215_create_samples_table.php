@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('samples', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('project_id');
-            $table->string('name',100)->nullable();
+            $table->text('name')->nullable();
             $table->string('image',255);
             $table->timestamps();
         });

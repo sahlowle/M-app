@@ -35,14 +35,13 @@ class AdminStoreProjectRequest extends FormRequest
 
             'status' => ['required','string','max:50'],
             'city' => ['required','string','max:50'],
-            'building_area' => ['numeric','digits_between:1,19'],
-            'land_area' => ['numeric','digits_between:1,19'],
-            'units_count' => ['numeric','digits_between:1,19'],
-            'floors' => ['numeric','digits_between:1,19'],
-            'pdf_file' => ['required','url','string'],
+            'building_area' => ['numeric',],
+            'land_area' => ['numeric',],
+            'units_count' => ['numeric',],
+            'floors' => ['numeric',],
+            'pdf_file' => ['required','mimes:pdf','max:10000'],
             'lat' => ['required','string','max:120'],
             'lng' => ['required','string','max:120'],
-            
         ];
     }
     

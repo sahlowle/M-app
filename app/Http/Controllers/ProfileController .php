@@ -11,6 +11,12 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+
+    public function send() {
+        event(new \App\Events\SendMessage('hello'));
+        return "hi";
+     }
+     
     /**
      * Display the user's profile form.
      */

@@ -74,14 +74,16 @@ class AuthController extends Controller
         $otpValidate = OTP::validate($email,$otp);
 
         if ($otpValidate->success) {
+
             $customer  = Customer::where('email',$email)->first();
-            $token = $customer->createToken("login-token")->plainTextToken;
+
+            $customer['token'] = $customer->createToken("login-token")->plainTextToken;
 
             $customer->update([
                 'is_verified' => true
             ]);
 
-            return $this->sendResponse(true,["token"=> $token],'Otp successful verified',200);
+            return $this->sendResponse(true,$customer,'Otp successful verified',200);
         }
 
         return $this->sendResponse(false,[],'Otp code is not valid',401);

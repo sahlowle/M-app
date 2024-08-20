@@ -17,7 +17,7 @@ class CustomerProjectController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Project::paginate($per_page);
+        $data = Project::withCount('samples')->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -31,7 +31,9 @@ class CustomerProjectController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $project->load('sliders');
+        $project->loadCount('samples');
+
+        $project->load('sliders','samples');
 
         return $this->sendResponse(true,$project,'project retrieved successful',200);
     }

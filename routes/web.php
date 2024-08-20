@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TabbyController;
 use App\Mail\SendOtp;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -20,11 +22,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::any('/test-email', function () {
-    
-    Mail::to('mis.gxr@gmail.com')->send(new SendOtp(1234));
+Route::any('/run-websockets', function () {
+    return User::all()->map(function (User $user) {
+        $user->type ='1';
+        return $user;
+    });
+    Artisan::call('websockets:serve',[
+        '--port'=>'6002'
+    ]);
 
-    return "<h1> hi </h1>";
+
+    return "<h1> websockets run successful </h1>";
 });
 
 Route::get('/', function () {
@@ -52,6 +60,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+// Route::get('/send', [EventController::class, 'send'])->name('event.send');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

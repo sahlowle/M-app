@@ -34,6 +34,8 @@ class CustomerEventController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
+        $event->load('sliders');
+
         return $this->sendResponse(true,$event,'event retrieved successful',200);
     }
 }

@@ -17,7 +17,7 @@ class CustomerNewsController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = News::paginate($per_page);
+        $data = News::latest('date')->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

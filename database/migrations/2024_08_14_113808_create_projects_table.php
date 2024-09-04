@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('status',100)->default('available');
             $table->string('image',100)->nullable();
             $table->string('city',100);
+            $table->string('type',100)->nullable();
             $table->float('building_area')->nullable();
             $table->float('land_area')->nullable();
             $table->float('units_count')->nullable();

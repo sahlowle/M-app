@@ -22,7 +22,7 @@ class AdminHotelController extends Controller
     {     
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Hotel::get();
+        $data = Hotel::withSum('customersClicks as total_clicks','customer_hotel.clicks_count')->get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -39,6 +39,10 @@ class AdminHotelController extends Controller
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadFile('hotel_images',$request->file('image'));
+        }
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->uploadFile('hotel_images',$request->file('logo'));
         }
 
         $hotel = Hotel::create($data);
@@ -60,7 +64,11 @@ class AdminHotelController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $hotel->load('options','sliders');
+        $hotel->loadSum('customersClicks as total_clicks','customer_hotel.clicks_count');
+
+        $hotel->load(['options','sliders','customersClicks'=> function ($query) {
+            $query->latest()->limit(2);
+        }]);
 
         return $this->sendResponse(true,$hotel,'hotel retrieved successful',200);
     }
@@ -86,6 +94,14 @@ class AdminHotelController extends Controller
             $data['image'] = $this->uploadFile('hotel_images',$request->file('image'));
 
             $path = $hotel->getRawOriginal('image');
+
+            $this->deleteFile($path);
+        }
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->uploadFile('hotel_images',$request->file('logo'));
+
+            $path = $hotel->getRawOriginal('logo');
 
             $this->deleteFile($path);
         }

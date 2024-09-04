@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\AdminStoreSliderRequest;
+use App\Models\Event;
 use App\Models\Hotel;
 use App\Models\Image;
 use App\Models\Mall;
 use App\Models\Museum;
 use App\Models\Project;
+use App\Models\Restaurant;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
 
@@ -26,9 +28,11 @@ class AdminSliderController extends Controller
     {
         $model = match ($request->type){
             'hotel' => Hotel::class,
+            'restaurant' => Restaurant::class,
             'mall' => Mall::class,
             'museum' => Museum::class,
             'project' => Project::class,
+            'event' => Event::class,
         };
 
         $instance = $model::find($request->id);

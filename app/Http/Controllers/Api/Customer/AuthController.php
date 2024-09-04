@@ -77,11 +77,12 @@ class AuthController extends Controller
 
             $customer  = Customer::where('email',$email)->first();
 
-            $customer['token'] = $customer->createToken("login-token")->plainTextToken;
-
             $customer->update([
                 'is_verified' => true
             ]);
+
+            $customer['token'] = $customer->createToken("login-token")->plainTextToken;
+
 
             return $this->sendResponse(true,$customer,'Otp successful verified',200);
         }

@@ -24,60 +24,64 @@ class CustomerSearchController extends Controller
     {     
         $count = 3;
         
-        $data['hotels'] = Hotel::filter($request)
+        $hotels = Hotel::filter($request)
         ->take($count)->get()
         ->map(function ($obj) {
             $obj->type ='hotel';
             return $obj;
         });
 
-        $data['malls'] = Mall::filter($request)
+        $malls= Mall::filter($request)
         ->take($count)->get()
         ->map(function ($obj) {
             $obj->type ='mall';
             return $obj;
         });
 
-        $data['events'] = Event::filter($request)
+        $events = Event::filter($request)
         ->take($count)->get()
         ->map(function ($obj) {
             $obj->type ='event';
             return $obj;
         });
-        $data['museum'] = Museum::filter($request)
-        ->take($count)->get()
-        ->map(function ($obj) {
-            $obj->type ='museum';
-            return $obj;
-        });
 
-        $data['news'] = News::filter($request)
-        ->take($count)->get()
-        ->map(function ($obj) {
-            $obj->type ='news';
-            return $obj;
-        });
+        // $museums = Museum::filter($request)
+        // ->take($count)->get()
+        // ->map(function ($obj) {
+        //     $obj->type ='museum';
+        //     return $obj;
+        // });
 
-        $data['restaurants'] = Restaurant::filter($request)
+        // $news = News::filter($request)
+        // ->take($count)->get()
+        // ->map(function ($obj) {
+        //     $obj->type ='news';
+        //     return $obj;
+        // });
+
+        $restaurants = Restaurant::filter($request)
         ->take($count)->get()
         ->map(function ($obj) {
             $obj->type ='restaurant';
             return $obj;
         });
 
-        $data['services'] = Service::filter($request)
+        $services = Service::filter($request)
         ->take($count)->get()
         ->map(function ($obj) {
             $obj->type ='service';
             return $obj;
         });
 
-        $data['projects'] = Project::filter($request)
-        ->take($count)->get()
-        ->map(function ($obj) {
-            $obj->type ='project';
-            return $obj;
-        });
+        // $projects = Project::filter($request)
+        // ->take($count)->get()
+        // ->map(function ($obj) {
+        //     $obj->type ='project';
+        //     return $obj;
+        // });
+
+        $data = $hotels->merge($malls)->merge($events)
+                ->merge($restaurants)->merge($services);
         
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }

@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Auth;
 
-class StoreContactRequest extends FormRequest
+class StoreInterestedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class StoreContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','max:150'],
-            'title' => ['required','max:150'],
-            'email' => ['email','max:100','email'],
-            'phone' =>  ['numeric','digits_between:9,20'],
-            'message' => ['required','string'],
+            'project_id' => ['required','exists:projects,id'],
+            'first_name' => ['required','max:150'],
+            'last_name' => ['required','max:150'],
+            'email' => ['required','email','max:150','email'],
+            'phone' =>  ['required','string','between:9,20'],
         ];
     }
 

@@ -33,13 +33,15 @@ class AdminUpdateProjectRequest extends FormRequest
             
             'image' => ['image'],
 
+            'type' => ['string','max:50'],
+
             'status' => ['string','max:50'],
             'city' => ['string','max:50'],
             'building_area' => ['numeric',],
             'land_area' => ['numeric',],
             'units_count' => ['numeric',],
             'floors' => ['numeric',],
-            'pdf_file' => ['mimes:pdf','max:10000'],
+            'pdf_file' => ['mimes:pdf','max:100000'],
             'lat' => ['string','max:120'],
             'lng' => ['string','max:120'],
         ];

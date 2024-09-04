@@ -46,7 +46,7 @@ class AdminProjectController extends Controller
 
         $project = Project::create($data);
 
-        return $this->sendResponse(true,$project,'benefit created successful',200);
+        return $this->sendResponse(true,$project,'project created successful',200);
     }
 
     /**
@@ -65,7 +65,7 @@ class AdminProjectController extends Controller
 
         $project->loadCount('samples');
 
-        $project->load('sliders','samples');
+        $project->load('sliders','samples','usersInterested');
 
         return $this->sendResponse(true,$project,'projects retrieved successful',200);
     }

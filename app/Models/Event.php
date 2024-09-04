@@ -21,4 +21,9 @@ class Event extends Model
     {
         return url("")."/".$value;
     }
+
+    public function sliders()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

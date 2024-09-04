@@ -30,6 +30,10 @@ class AdminUpdateBenefitRequest extends FormRequest
             'title' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
 
             'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+
+            // 'content' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
+
+            'link' => ['string','max:1500'],
             
             'image' => ['image'],
         ];

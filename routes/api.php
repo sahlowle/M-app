@@ -45,6 +45,7 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::apiResource('hotels',CustomerHotelController::class)->only('show','index');
     Route::post('click-hotel',[CustomerHotelController::class,'clickHotel'])->middleware('auth:sanctum');
     Route::post('contacts',[CustomerContactController::class,'store']);
+    Route::post('add-interested',[CustomerProjectController::class,'addInterestedUser']);
     Route::apiResource('malls',CustomerMallController::class)->only('show','index');
     Route::apiResource('projects',CustomerProjectController::class)->only('show','index');
     Route::apiResource('news',CustomerNewsController::class)->only('show','index');

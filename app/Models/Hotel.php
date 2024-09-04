@@ -21,6 +21,11 @@ class Hotel extends Model
     {
         return url("")."/".$value;
     }
+
+    public function getLogoAttribute($value)
+    {
+        return url("")."/".$value;
+    }
     
     public function options()
     {

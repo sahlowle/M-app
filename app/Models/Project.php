@@ -34,6 +34,11 @@ class Project extends Model
         return $this->hasMany(Sample::class);
     }
 
+    public function usersInterested()
+    {
+        return $this->hasMany(Interested::class);
+    }
+
     public function sliders()
     {
         return $this->morphMany(Image::class, 'imageable');

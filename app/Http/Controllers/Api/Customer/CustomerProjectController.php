@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\StoreInterestedRequest;
+use App\Models\Interested;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -33,8 +35,17 @@ class CustomerProjectController extends Controller
 
         $project->loadCount('samples');
 
-        $project->load('sliders','samples');
+        $project->load('sliders','samples','usersInterested');
 
         return $this->sendResponse(true,$project,'project retrieved successful',200);
+    }
+
+    public function addInterestedUser(StoreInterestedRequest $request)
+    {
+        $data = $request->validated();
+
+        $interested = Interested::create($data);
+
+        return $this->sendResponse(true,$interested,'interested added successful',200);
     }
 }

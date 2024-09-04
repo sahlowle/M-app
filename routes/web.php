@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TabbyController;
 use App\Mail\SendOtp;
 use App\Models\User;
+use App\Services\FirebaseService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::any('/run', function () {
+    return FirebaseService::getAccessToken();
+});
 Route::any('/run-websockets', function () {
     return User::all()->map(function (User $user) {
         $user->type ='1';

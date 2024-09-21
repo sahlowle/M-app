@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Google_Client;
 
 class SendFcmNotifications implements ShouldQueue
 {
@@ -38,36 +39,51 @@ class SendFcmNotifications implements ShouldQueue
         DB::table('customers')->select(['id','fcm_token','device_type'])
         ->orderBy('id')
         ->chunk(100, function (Collection $customers) { 
+
             $tokens = $customers->pluck('fcm_token');
-            
-            $this->sendNotification($this->title,$this->body,$tokens);
+
+            foreach ($tokens as $token) {
+                $this->sendNotification($this->title,$this->body,$token);
+            }
             
         });
     }
 
-    public function sendNotification($title,$body,Collection $firebaseTokens)
+    public function sendNotification($title,$body,$firebaseToken)
     {
-            
-        $SERVER_API_KEY = config('services.FCM_SERVER_KEY');
+
 
         $data = [
-            "registration_ids" => $firebaseTokens->toArray(),
-            "notification" => [
-                "title" => $title,
-                "body" => $body,  
+            "json" => [
+
+                "message" => [
+
+                    "token" => $firebaseToken,
+
+                    "notification" => [
+                        "title" => $title,
+                        "body" => $body
+                    ],
+
+                    'data' => [],
+                ]
             ]
         ];
 
         $dataString = json_encode($data);
     
         $headers = [
-            'Authorization: key=' . $SERVER_API_KEY,
-            'Content-Type: application/json',
+            'Authorization' => 'Bearer ' . $this->getAccessToken(),
+            'Content-Type' => 'application/json',
         ];
+
+        $projectID = 'jodc-4e614';
+
+        $url = 'https://fcm.googleapis.com/v1/projects/'.$projectID.'/messages:send';
     
         $ch = curl_init();
         
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -77,5 +93,19 @@ class SendFcmNotifications implements ShouldQueue
         $response = curl_exec($ch);
 
         // Log::info($response);    
+    }
+
+    public function getAccessToken()
+    {
+        $credentialsPath = storage_path('app/google-services.json'); // Path to your service account file
+
+
+        $client = new Google_Client();
+        $client->setAuthConfig($credentialsPath);
+        $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
+
+        $token = $client->fetchAccessTokenWithAssertion();
+
+        return $token['access_token'];
     }
 }

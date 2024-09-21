@@ -36,7 +36,7 @@ class AdminStoreProjectRequest extends FormRequest
             'status' => ['required','string','max:50'],
             'city' => ['required','string','max:50'],
             'type' => ['required','string','max:50'],
-            'building_area' => ['numeric',],
+            'building_area' => ['numeric'],
             'land_area' => ['numeric',],
             'units_count' => ['numeric',],
             'floors' => ['numeric',],

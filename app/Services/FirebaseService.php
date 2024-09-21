@@ -11,30 +11,31 @@ class FirebaseService
 {
     public static function sendNotification($title,$body,$extra_data,Collection $tokens)
     {
-        $token = self::getAccessToken();
+        $access_token = self::getAccessToken();
         
         //initial request
-        $http = Http::acceptJson()->withToken($token);
+        $http = Http::acceptJson()->withToken($access_token);
         
         //chunk tokens
-        foreach ($tokens->chunk(100) as $firebaseToken){
+        foreach ($tokens as $firebaseToken){
+
             $data = [
+                "json" => [
 
-                "registration_ids" => $firebaseToken,
-    
-                "notification" => [
-                    "title" => $title,
-    
-                    "body" => $body,
+                    "message" => [
 
-                    "sound" => "custom_sound.mp3"
-                ],
+                        "token" => $firebaseToken,
 
-                "data"=> $extra_data,
-                
-                "priority"=>"high"
-    
+                        "notification" => [
+                            "title" => $title,
+                            "body" => $body
+                        ],
+
+                        'data' => $extra_data,
+                    ]
+                ]
             ];
+
 
             $projectID = 'jodc-4e614';
 
@@ -58,7 +59,6 @@ class FirebaseService
 
         $token = $client->fetchAccessTokenWithAssertion();
 
-        dd($token);
         return $token['access_token'];
     }
 }

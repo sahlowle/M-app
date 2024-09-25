@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Google_Client;
 
+use GuzzleHttp\Client;
+
 class SendFcmNotifications implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -37,6 +39,7 @@ class SendFcmNotifications implements ShouldQueue
     public function handle()
     {
         DB::table('customers')->select(['id','fcm_token','device_type'])
+        ->whereNotNull('fcm_token')
         ->orderBy('id')
         ->chunk(100, function (Collection $customers) { 
 
@@ -54,19 +57,15 @@ class SendFcmNotifications implements ShouldQueue
 
 
         $data = [
-            "json" => [
+            "message" => [
+                "token" => $firebaseToken,
 
-                "message" => [
-
-                    "token" => $firebaseToken,
-
-                    "notification" => [
-                        "title" => $title,
-                        "body" => $body
-                    ],
-
-                    'data' => [],
-                ]
+                "notification" => [
+                    "title" => $title,
+                    "body" => $body
+                ],
+                
+                'data' => [],
             ]
         ];
 
@@ -91,6 +90,8 @@ class SendFcmNotifications implements ShouldQueue
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
                 
         $response = curl_exec($ch);
+
+        return $response;
 
         // Log::info($response);    
     }

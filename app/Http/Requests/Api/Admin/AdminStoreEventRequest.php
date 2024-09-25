@@ -43,7 +43,14 @@ class AdminStoreEventRequest extends FormRequest
         ];
     }
 
-       /*
+    public function messages()
+    {
+        return [
+            'image.image' => 'the image must be an image',
+        ];
+    }
+
+    /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
     |--------------------------------------------------------------------------
@@ -51,7 +58,7 @@ class AdminStoreEventRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $controller = new Controller;
-        
+
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

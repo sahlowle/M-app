@@ -56,13 +56,13 @@ class AdminMessageController extends Controller
         $message = Message::create($data);
 
         $customer_id = $request->customer_id;
-        
-        event(new SendMessageToCustomer($customer_id->id,$data));
-       
+
+        // event(new SendMessageToCustomer($customer_id->id,$data));
+
        return $this->sendResponse(true , $message , 'message created successful',200);
     }
 
- 
+
     public function updateMessage(AdminUpdateMessageRequest $request, $id)
     {
         $message = Message::find($id);

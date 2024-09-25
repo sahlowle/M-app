@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('customer_id');
             $table->bigInteger('hotel_id');
-            $table->bigInteger('clicks_count');
+            $table->bigInteger('clicks_count')->default(0);
         });
     }
 

@@ -20,7 +20,7 @@ class AdminUpdateEventRequest extends FormRequest
 
     public function rules()
     {
-        
+
         return [
             'name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
@@ -35,7 +35,14 @@ class AdminUpdateEventRequest extends FormRequest
             'phone_three' => ['numeric','digits_between:9,20'],
         ];
 
-        
+
+    }
+
+    public function messages()
+    {
+        return [
+            'image.image' => 'the image must be an image',
+        ];
     }
 
    /*
@@ -46,7 +53,7 @@ class AdminUpdateEventRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $controller = new Controller;
-        
+
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

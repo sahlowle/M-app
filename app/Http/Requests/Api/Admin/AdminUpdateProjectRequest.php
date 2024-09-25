@@ -30,7 +30,7 @@ class AdminUpdateProjectRequest extends FormRequest
             'name' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
 
             'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
-            
+
             'image' => ['image'],
 
             'type' => ['string','max:50'],
@@ -45,9 +45,16 @@ class AdminUpdateProjectRequest extends FormRequest
             'lat' => ['string','max:120'],
             'lng' => ['string','max:120'],
         ];
-        
+
     }
-    
+
+    public function messages()
+    {
+        return [
+            'image.image' => 'the image must be an image',
+        ];
+    }
+
    /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
@@ -56,7 +63,7 @@ class AdminUpdateProjectRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $controller = new Controller;
-        
+
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

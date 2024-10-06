@@ -26,14 +26,14 @@ class Hotel extends Model
     {
         return url("")."/".$value;
     }
-    
-    public function options()
+
+    public function options    ()
     {
         return $this->hasMany(Option::class);
     }
-    
+
     public function sliders()
-    {
+        {
         return $this->morphMany(Image::class, 'imageable');
     }
 
@@ -41,5 +41,5 @@ class Hotel extends Model
     {
         return $this->belongsToMany(Customer::class)->withPivot('clicks_count');
     }
-    
+
 }

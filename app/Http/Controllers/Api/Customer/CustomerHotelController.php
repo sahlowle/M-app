@@ -15,7 +15,7 @@ class CustomerHotelController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {     
+    {
         $per_page = $request->get('per_page',$this->default_per_page);
 
         $data = Hotel::withSum('customersClicks as total_clicks','customer_hotel.clicks_count')->orderBy('sort')->paginate($per_page);

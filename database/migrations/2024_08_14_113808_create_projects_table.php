@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('city',100);
             $table->string('type',100)->nullable();
             $table->float('building_area')->nullable();
+            $table->float('number_of_podium_floors')->nullable();
+            $table->float('investable_area')->nullable();
             $table->float('land_area')->nullable();
             $table->float('units_count')->nullable();
             // $table->bigInteger('models_count')->nullable();

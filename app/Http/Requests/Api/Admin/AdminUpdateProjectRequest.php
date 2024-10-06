@@ -37,6 +37,8 @@ class AdminUpdateProjectRequest extends FormRequest
 
             'status' => ['string','max:50'],
             'city' => ['string','max:50'],
+            'investable_area' => ['numeric'],
+            'number_of_podium_floors' => ['numeric'],
             'building_area' => ['numeric',],
             'land_area' => ['numeric',],
             'units_count' => ['numeric',],

@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Hotel;
 use App\Traits\FileSaveTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminHotelController extends Controller
 {
@@ -19,10 +20,16 @@ class AdminHotelController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {     
+    {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Hotel::withSum('customersClicks as total_clicks','customer_hotel.clicks_count')->get();
+        // $data = Hotel::withSum('customersClicks as total_clicks','customer_hotel.clicks_count')->get();
+
+
+        $data = Hotel::withSum(['customersClicks as total_clicks' => function ($query) {
+            $query->select(DB::raw('COALESCE(SUM(customer_hotel.clicks_count), 0)'));
+        }],'customer_hotel.clicks_count')
+        ->get();
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -64,7 +71,9 @@ class AdminHotelController extends Controller
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
 
-        $hotel->loadSum('customersClicks as total_clicks','customer_hotel.clicks_count');
+        $hotel->loadSum(['customersClicks as total_clicks' => function ($query) {
+            $query->select(DB::raw('COALESCE(SUM(customer_hotel.clicks_count), 0)'));
+        }],'customer_hotel.clicks_count');
 
         $hotel->load(['options','sliders','customersClicks'=> function ($query) {
             $query->latest()->limit(2);
@@ -87,7 +96,7 @@ class AdminHotelController extends Controller
         if (is_null($hotel)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
-        
+
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -124,7 +133,7 @@ class AdminHotelController extends Controller
         if (is_null($hotel)) {
             return $this->sendResponse(false ,[] ,"data not found ",404);
         }
-        
+
         $path = $hotel->getRawOriginal('image');
 
         $hotel->delete();

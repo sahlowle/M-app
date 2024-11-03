@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('sort')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
+            $table->text('map_url')->nullable();
             $table->string('booking_url')->nullable();
             $table->float('stars_count')->nullable();
             $table->float('rate_stars_count')->nullable();

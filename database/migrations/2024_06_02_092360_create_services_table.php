@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
+            $table->text('map_url')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_one',20)->nullable();
             $table->string('phone_two',20)->nullable();

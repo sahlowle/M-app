@@ -30,19 +30,20 @@ class AdminStoreRestaurantRequest extends FormRequest
             'name' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'mall_name' => ['required','array:en,ar,fr,ur,tr,sw'],
             'description' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
-            
+
             'category_id' => ['required','exists:categories,id'],
             'image' => ['required','image'],
 
-            'lat' => ['required','max:120'],
-            'lng' => ['required','max:120'],
+            'lat' => ['string','max:120'],
+            'lng' => ['string','max:120'],
+            'map_url' => ['string','max:1024'],
             'address' => ['required','string','max:190'],
             'phone_one' => ['numeric','digits_between:9,20'],
             'phone_two' => ['numeric','digits_between:9,20'],
             'phone_three' => ['numeric','digits_between:9,20'],
         ];
     }
-    
+
    /*
     |--------------------------------------------------------------------------
     | handel json form of validation error
@@ -51,7 +52,7 @@ class AdminStoreRestaurantRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $controller = new Controller;
-        
+
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

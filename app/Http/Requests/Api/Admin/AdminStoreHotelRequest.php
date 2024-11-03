@@ -29,8 +29,9 @@ class AdminStoreHotelRequest extends FormRequest
             'description' => ['required','array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'price' => ['required','numeric'],
             'sort' => ['required','numeric'],
-            'lat' => ['required','max:120'],
-            'lng' => ['required','max:120'],
+            'lat' => ['nullable','max:120'],
+            'lng' => ['nullable','max:120'],
+            'map_url' => ['string','max:1024'],
             'booking_url' => ['required','url'],
             'stars_count' => ['required','numeric'],
             'rate_stars_count' => ['required','numeric'],
@@ -45,7 +46,7 @@ class AdminStoreHotelRequest extends FormRequest
             'phone_three' => ['numeric','digits_between:9,20'],
         ];
 
-        
+
     }
 
    /*
@@ -56,7 +57,7 @@ class AdminStoreHotelRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $controller = new Controller;
-        
+
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

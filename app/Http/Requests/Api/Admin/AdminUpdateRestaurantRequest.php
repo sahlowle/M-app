@@ -28,8 +28,9 @@ class AdminUpdateRestaurantRequest extends FormRequest
             'description' => ['array:en,ar,fr,ur,tr,sw','required_array_keys:en,ar,fr,ur,tr,sw'],
             'category_id' => ['exists:categories,id'],
             'image' => ['image'],
-            'lat' => ['max:120'],
-            'lng' => ['max:120'],
+            'lat' => ['string','max:120'],
+            'lng' => ['string','max:120'],
+            'map_url' => ['string','max:1024'],
             'address' => ['string','max:190'],
             'phone_one' => ['numeric','digits_between:9,20'],
             'phone_two' => ['numeric','digits_between:9,20'],
@@ -45,7 +46,7 @@ class AdminUpdateRestaurantRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $controller = new Controller;
-        
+
         throw new HttpResponseException($controller->sendResponse(false,$validator->errors(),'The given data was invalid.',422));
     }
 }

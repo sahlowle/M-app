@@ -17,7 +17,7 @@ class CustomerEventController extends Controller
     {
         $per_page = $request->get('per_page',$this->default_per_page);
 
-        $data = Event::paginate($per_page);
+        $data = Event::latest('event_date')->paginate($per_page);
 
         return $this->sendResponse(true,$data,'data retrieved successful',200);
     }
@@ -25,7 +25,7 @@ class CustomerEventController extends Controller
     /**
      * Display the specified resource.
      */
-    
+
     public function show($id)
     {
         $event = Event::find($id);
